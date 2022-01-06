@@ -4,11 +4,13 @@ import roleBuilder from './roles/builder';
 import roleHarvester from './roles/harvester';
 import roleUpgrader from './roles/upgrader';
 import { runTower } from './tower';
+import { spawn } from './spawn';
 
 jest.mock('roles/builder');
 jest.mock('roles/harvester');
 jest.mock('roles/upgrader');
 jest.mock('tower');
+jest.mock('spawn')
 
 const builder = mockInstanceOf<Creep>({ memory: { role: 'builder' } });
 const harvester = mockInstanceOf<Creep>({ memory: { role: 'harvester' } });
@@ -29,6 +31,12 @@ const myRoomWithoutTowers = mockInstanceOf<Room>({
 const someoneElsesRoom = mockInstanceOf<Room>({ controller: someoneElsesController });
 const noOnesRoom = mockInstanceOf<Room>({ controller: undefined });
 
+// Own added spec
+const Spawn1 = mockStructure(STRUCTURE_SPAWN, {
+  spawnCreep: () => OK,
+});
+// const spawnCreep = Spawn1.spawnCreep([WORK], 'name')
+
 describe('main loop', () => {
 
   it('runs every creep', () => {
@@ -39,7 +47,8 @@ describe('main loop', () => {
         upgrader
       },
       rooms: {},
-      time: 1
+      time: 1,
+      spawns: { Spawn1 },
     });
     mockGlobal<Memory>('Memory', { creeps: {} });
     unwrappedLoop();
@@ -52,7 +61,8 @@ describe('main loop', () => {
     mockGlobal<Game>('Game', {
       creeps: { stillKicking: harvester },
       rooms: {},
-      time: 1
+      time: 1,
+      spawns: { Spawn1 },
     });
     mockGlobal<Memory>('Memory', {
       creeps: {
@@ -74,12 +84,17 @@ describe('main loop', () => {
         noOnesRoom,
         someoneElsesRoom
       },
-      time: 1
+      time: 1,
+      spawns: {
+        Spawn1,
+      },
     });
     mockGlobal<Memory>('Memory', { creeps: {} });
     unwrappedLoop();
     expect(runTower).toHaveBeenCalledWith(tower1);
     expect(runTower).toHaveBeenCalledWith(tower2);
+
+
   });
 
 });

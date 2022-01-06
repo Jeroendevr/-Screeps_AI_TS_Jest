@@ -3,6 +3,7 @@ import roleHarvester from 'roles/harvester';
 import roleUpgrader, { Upgrader } from 'roles/upgrader';
 import ErrorMapper from 'utils/ErrorMapper';
 import { runTower } from './tower';
+import { spawnManager } from "manager.spawn"
 
 declare global {
   interface CreepMemory {
@@ -34,6 +35,10 @@ function unwrappedLoop(): void {
       roleBuilder.run(creep as Builder);
     }
   });
+
+  spawnManager.spawn()
+
+
 
   // Automatically delete memory of missing creeps
   Object.keys(Memory.creeps)
