@@ -1,4 +1,5 @@
 import { count } from "console"
+import { mockInstanceOf } from "screeps-jest"
 import { countRole } from "utils/memory.role"
 
 export var spawnManager = {
@@ -12,6 +13,7 @@ export var spawnManager = {
         const screepAmount = {
             harvester: 3,
             builder: 2,
+            upgrader: 1,
         }
 
         const harvesters = countRole('harvester')
@@ -31,6 +33,15 @@ export var spawnManager = {
             Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, MOVE], newName,
                 { memory: { role: 'builder', } })
 
+        }
+
+        const upgrader = countRole('upgrader')
+
+        if (upgrader < screepAmount.upgrader) {
+            var newName: string = 'Upgrader' + Game.time;
+            console.log('Spawning new upgrader: ' + newName);
+            Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName,
+                { memory: { role: 'upgrader' } })
         }
     }
 }
