@@ -1,4 +1,5 @@
-import { collect } from "lodash";
+import { count } from "console"
+import { countRole } from "utils/memory.role"
 
 export var spawnManager = {
 
@@ -13,7 +14,7 @@ export var spawnManager = {
             builder: 2,
         }
 
-        var harvesters = Object.values(Game.creeps).filter(creep => creep.memory.role === 'harvester').length
+        const harvesters = countRole('harvester')
 
         if (harvesters < screepAmount.harvester) {
             var newName: string = 'Harvester' + Game.time;
@@ -22,7 +23,7 @@ export var spawnManager = {
                 { memory: { role: 'harvester', } });
         }
 
-        var builders = Object.values(Game.creeps).filter(creep => creep.memory.role === 'builder').length
+        const builders = countRole('builder')
 
         if (builders < screepAmount.builder) {
             var newName: string = 'Builders' + Game.time;
