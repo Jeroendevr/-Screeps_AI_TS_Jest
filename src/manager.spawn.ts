@@ -1,5 +1,6 @@
 import { count } from "console"
 import { mockInstanceOf } from "screeps-jest"
+import { isAvailable } from "spawn"
 import { countRole } from "utils/memory.role"
 
 export var spawnManager = {
@@ -14,34 +15,32 @@ export var spawnManager = {
             harvester: 3,
             builder: 2,
             upgrader: 1,
-        }
+        };
 
-        const harvesters = countRole('harvester')
+        if (isAvailable(Game.spawns['Spawn1'])) {
 
-        if (harvesters < screepAmount.harvester) {
-            var newName: string = 'Harvester' + Game.time;
-            console.log('Spawning new harvester: ' + newName);
-            Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName,
-                { memory: { role: 'harvester', } });
-        }
+            const harvesters = countRole('harvester')
+            const builders = countRole('builder')
+            const upgrader = countRole('upgrader')
 
-        const builders = countRole('builder')
+            if (harvesters < screepAmount.harvester) {
+                var newName: string = 'Harvester' + Game.time;
+                console.log('Spawning new harvester: ' + newName);
+                Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName,
+                    { memory: { role: 'harvester', } });
+            }
+            else if (builders < screepAmount.builder) {
+                var newName: string = 'Builders' + Game.time;
+                console.log('Spwaning new builders: ' + newName);
+                Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, MOVE], newName,
+                    { memory: { role: 'builder', } })
 
-        if (builders < screepAmount.builder) {
-            var newName: string = 'Builders' + Game.time;
-            console.log('Spwaning new builders: ' + newName);
-            Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, MOVE], newName,
-                { memory: { role: 'builder', } })
-
-        }
-
-        const upgrader = countRole('upgrader')
-
-        if (upgrader < screepAmount.upgrader) {
-            var newName: string = 'Upgrader' + Game.time;
-            console.log('Spawning new upgrader: ' + newName);
-            Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName,
-                { memory: { role: 'upgrader' } })
+            } else if (upgrader < screepAmount.upgrader) {
+                var newName: string = 'Upgrader' + Game.time;
+                console.log('Spawning new upgrader: ' + newName);
+                Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName,
+                    { memory: { role: 'upgrader' } })
+            }
         }
     }
 }
