@@ -4,6 +4,7 @@ import roleUpgrader, { Upgrader } from 'roles/upgrader';
 import ErrorMapper from 'utils/ErrorMapper';
 import { runTower } from './tower';
 import { spawnManager } from "manager.spawn"
+import { infraManager } from "./manager/manager.infra"
 
 declare global {
   interface CreepMemory {
@@ -37,6 +38,8 @@ function unwrappedLoop(): void {
   });
 
   spawnManager.spawn()
+  //infraManager.run()
+
 
 
 

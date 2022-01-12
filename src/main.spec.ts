@@ -30,12 +30,13 @@ const myRoomWithoutTowers = mockInstanceOf<Room>({
 });
 const someoneElsesRoom = mockInstanceOf<Room>({ controller: someoneElsesController });
 const noOnesRoom = mockInstanceOf<Room>({ controller: undefined });
+const findPath = jest.fn(() => 'A1A1');
 
 // Own added spec
 const Spawn1 = mockStructure(STRUCTURE_SPAWN, {
   spawnCreep: () => OK,
 });
-// const spawnCreep = Spawn1.spawnCreep([WORK], 'name')
+
 
 describe('main loop', () => {
 
@@ -48,7 +49,17 @@ describe('main loop', () => {
       },
       rooms: {},
       time: 1,
-      spawns: { Spawn1 },
+      spawns: {
+        Spawn1: {
+          room: {
+            myRoomWithoutTowers: {
+            },
+            findPath,
+            name: 'A1A1',
+          },
+          pos: [],
+        },
+      }
     });
     mockGlobal<Memory>('Memory', { creeps: {} });
     unwrappedLoop();
@@ -62,7 +73,17 @@ describe('main loop', () => {
       creeps: { stillKicking: harvester },
       rooms: {},
       time: 1,
-      spawns: { Spawn1 },
+      spawns: {
+        Spawn1: {
+          room: {
+            myRoomWithoutTowers: {
+            },
+            findPath,
+            name: 'A1A1',
+          },
+          pos: [],
+        }
+      },
     });
     mockGlobal<Memory>('Memory', {
       creeps: {
@@ -86,10 +107,18 @@ describe('main loop', () => {
       },
       time: 1,
       spawns: {
-        Spawn1,
-      },
-    });
-    mockGlobal<Memory>('Memory', { creeps: {} });
+        Spawn1: {
+          room: {
+            myRoomWithoutTowers: {
+            },
+            findPath,
+            name: 'W1H1',
+          },
+          pos: [],
+        }
+      }
+    }),
+      mockGlobal<Memory>('Memory', { creeps: {} });
     unwrappedLoop();
     expect(runTower).toHaveBeenCalledWith(tower1);
     expect(runTower).toHaveBeenCalledWith(tower2);

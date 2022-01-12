@@ -31,9 +31,12 @@ export var spawnManager = {
             }
             else if (builders < screepAmount.builder) {
                 var newName: string = 'Builders' + Game.time;
-                console.log('Spwaning new builders: ' + newName);
-                Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, MOVE], newName,
-                    { memory: { role: 'builder', } })
+                const builderBody: BodyPartConstant[] = [WORK, CARRY, MOVE, MOVE]
+                if (_.sum(builderBody, part => BODYPART_COST[part]) > Game.spawns['Spawn1'].store.getFreeCapacity(RESOURCE_ENERGY)) {
+                    console.log('Spwaning new builders: ' + newName);
+                    Game.spawns['Spawn1'].spawnCreep(builderBody, newName,
+                        { memory: { role: 'builder', } })
+                }
 
             } else if (upgrader < screepAmount.upgrader) {
                 var newName: string = 'Upgrader' + Game.time;
