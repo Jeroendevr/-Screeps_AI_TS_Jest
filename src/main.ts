@@ -38,7 +38,7 @@ function unwrappedLoop(): void {
   });
 
   spawnManager.spawn()
-  //infraManager.run()
+  infraManager.run()
 
 
 
