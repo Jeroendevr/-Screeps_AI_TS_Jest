@@ -17,8 +17,6 @@ var infraManager = {
 
     }
 
-
-
 }
 
 function road_from_control_to_energy(spawns: StructureSpawn): PathStep[] {
@@ -32,8 +30,8 @@ function create_construction_site(path: PathStep,): void {
     //check if its already a construction site
     let pos = path
     const ROOM_POS = new RoomPosition(pos.x, pos.y, infraManager.cur_room)
-    console.log(ROOM_POS)
-    const found = ROOM_POS.lookFor(LOOK_CONSTRUCTION_SITES || LOOK_STRUCTURES)
+    // console.log(ROOM_POS)
+    const found = ROOM_POS.lookFor(LOOK_CONSTRUCTION_SITES)
     if (found[0] == undefined) {
         ROOM_POS.createConstructionSite(STRUCTURE_ROAD)
     }

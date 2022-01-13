@@ -5,6 +5,8 @@ import roleHarvester from './roles/harvester';
 import roleUpgrader from './roles/upgrader';
 import { runTower } from './tower';
 import { spawn } from './spawn';
+import { mockRoomPositionConstructor } from 'screeps-jest/dist/src/mocking';
+import { any } from 'lodash';
 
 jest.mock('roles/builder');
 jest.mock('roles/harvester');
@@ -32,14 +34,14 @@ const someoneElsesRoom = mockInstanceOf<Room>({ controller: someoneElsesControll
 const noOnesRoom = mockInstanceOf<Room>({ controller: undefined });
 const findPath = jest.fn(() => 'A1A1');
 
-// Own added spec
-const Spawn1 = mockStructure(STRUCTURE_SPAWN, {
-  spawnCreep: () => OK,
-});
-
+mockRoomPositionConstructor(global);
+const ROOM_POS = mockInstanceOf<RoomPosition>({
+  x: 1,
+  y: 1,
+  lookFor: () => []
+})
 
 describe('main loop', () => {
-
   it('runs every creep', () => {
     mockGlobal<Game>('Game', {
       creeps: {
@@ -59,8 +61,10 @@ describe('main loop', () => {
           },
           pos: [],
         },
-      }
-    });
+      },
+      RoomPosition: ROOM_POS
+    }
+    );
     mockGlobal<Memory>('Memory', { creeps: {} });
     unwrappedLoop();
     expect(roleBuilder.run).toHaveBeenCalledWith(builder);
