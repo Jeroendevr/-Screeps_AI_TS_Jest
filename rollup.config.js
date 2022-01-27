@@ -19,7 +19,7 @@ if (!dest) {
 export default {
   input: 'src/main.ts',
   output: {
-    file: 'dist/main.js',
+    file: "/Users/hayer/Library/Application Support/Screeps/scripts/51_124_209_63___21025/default/main.js",
     format: 'cjs',
     sourcemap: true
   },

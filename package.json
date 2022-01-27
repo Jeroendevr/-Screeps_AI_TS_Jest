@@ -17,7 +17,8 @@
     "test-only": "bash -c 'jest --watch --coverage --verbose --collectCoverageFrom=\"**/*$1*\" $1' -- ",
     "watch-main": "rollup -cw --environment DEST:main",
     "watch-pserver": "rollup -cw --environment DEST:pserver",
-    "watch-sim": "rollup -cw --environment DEST:sim"
+    "watch-sim": "rollup -cw --environment DEST:sim",
+    "watch-local": "rollup -c --environment DEST:local"
   },
   "repository": {
     "type": "git",
@@ -41,7 +42,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-stats": "^1.0.1",
-    "jest": "^27.1.0",
+    "jest": "^27.4.7",
     "lodash": "^3.10.1",
     "rollup": "^2.56.3",
     "rollup-plugin-clear": "^2.0.7",
