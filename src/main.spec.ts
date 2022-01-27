@@ -1,5 +1,5 @@
 import { mockGlobal, mockInstanceOf, mockStructure } from 'screeps-jest';
-import { unwrappedLoop, runCreep, runAllTowers } from './main';
+import { unwrappedLoop, runCreep, runAllTowers, cleanMemory } from './main';
 import roleBuilder from './roles/builder';
 import roleHarvester from './roles/harvester';
 import roleUpgrader from './roles/upgrader';
@@ -96,7 +96,7 @@ describe('main loop', () => {
         stillKicking: harvester.memory
       }
     });
-    unwrappedLoop();
+    cleanMemory()
     expect(Memory.creeps).toEqual({ stillKicking: harvester.memory });
   });
 
@@ -115,8 +115,6 @@ describe('main loop', () => {
     runAllTowers();
     expect(runTower).toHaveBeenCalledWith(tower1);
     expect(runTower).toHaveBeenCalledWith(tower2);
-
-
   });
 
 });
