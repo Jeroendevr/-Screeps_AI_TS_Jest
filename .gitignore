@@ -92,3 +92,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+src/zandbak.js
+.gitignore
+src/zandbak.ts
