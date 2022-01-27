@@ -19,7 +19,7 @@ function unwrappedLoop(): void {
   runCreep()
   spawnManager.spawn()
   infraManager.run()
-};
+}
 
 function cleanMemory(): void {
   // Automatically delete memory of missing creeps
@@ -66,7 +66,6 @@ const loop = ErrorMapper.wrapLoop(unwrappedLoop);
 
 export {
   loop,
-  unwrappedLoop,
   cleanMemory,
   runCreep,
   runAllTowers

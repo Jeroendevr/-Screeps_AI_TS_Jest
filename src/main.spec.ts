@@ -1,12 +1,10 @@
 import { mockGlobal, mockInstanceOf, mockStructure } from 'screeps-jest';
-import { unwrappedLoop, runCreep, runAllTowers, cleanMemory } from './main';
+import { runCreep, runAllTowers, cleanMemory } from './main';
 import roleBuilder from './roles/builder';
 import roleHarvester from './roles/harvester';
 import roleUpgrader from './roles/upgrader';
 import { runTower } from './tower';
-import { spawn } from './spawn';
 import { mockRoomPositionConstructor } from 'screeps-jest/dist/src/mocking';
-import { any } from 'lodash';
 
 jest.mock('roles/builder');
 jest.mock('roles/harvester');
@@ -32,7 +30,6 @@ const myRoomWithoutTowers = mockInstanceOf<Room>({
 });
 const someoneElsesRoom = mockInstanceOf<Room>({ controller: someoneElsesController });
 const noOnesRoom = mockInstanceOf<Room>({ controller: undefined });
-const findPath = jest.fn(() => 'A1A1');
 
 mockRoomPositionConstructor(global);
 const ROOM_POS = mockInstanceOf<RoomPosition>({
@@ -51,17 +48,6 @@ describe('main loop', () => {
       },
       rooms: {},
       time: 1,
-      spawns: {
-        Spawn1: {
-          room: {
-            myRoomWithoutTowers: {
-            },
-            findPath,
-            name: 'A1A1',
-          },
-          pos: [],
-        },
-      },
       RoomPosition: ROOM_POS
     }
     );
@@ -77,17 +63,7 @@ describe('main loop', () => {
       creeps: { stillKicking: harvester },
       rooms: {},
       time: 1,
-      spawns: {
-        Spawn1: {
-          room: {
-            myRoomWithoutTowers: {
-            },
-            findPath,
-            name: 'A1A1',
-          },
-          pos: [],
-        }
-      },
+      spawns: {}
     });
     mockGlobal<Memory>('Memory', {
       creeps: {
