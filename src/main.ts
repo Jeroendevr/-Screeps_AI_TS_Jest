@@ -1,10 +1,10 @@
+import { spawnManager } from "manager/manager.spawn";
 import roleBuilder, { Builder } from 'roles/builder';
 import roleHarvester from 'roles/harvester';
 import roleUpgrader, { Upgrader } from 'roles/upgrader';
 import ErrorMapper from 'utils/ErrorMapper';
+import { infraManager } from "./manager/manager.infra";
 import { runTower } from './tower';
-import { spawnManager } from "manager.spawn"
-import { infraManager } from "./manager/manager.infra"
 
 declare global {
   interface CreepMemory {
