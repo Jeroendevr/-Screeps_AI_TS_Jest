@@ -2,6 +2,7 @@
   "name": "screeps-typescript-starter",
   "version": "3.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "//": "If you add or change the names of destinations in screeps.json, make sure you update these scripts to reflect the changes",
   "scripts": {
@@ -30,7 +31,7 @@
   },
   "homepage": "https://github.com/screepers/screeps-typescript-starter#readme",
   "engines": {
-    "node": "10.x || 12.x"
+    "node": "14.x"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
