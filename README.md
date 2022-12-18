@@ -53,3 +53,9 @@ To visit the docs, [click here](https://screepers.gitbook.io/screeps-typescript-
 ## Contributing
 
 Issues, Pull Requests, and contribution to the docs are welcome! See our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+
+## Aditional config by me
+### Option 1
+Install NODE LTS 14. Fermium
+Update NPM using npm install -g npm
+
