@@ -13,6 +13,7 @@
     "push-season": "rollup -c --environment DEST:season",
     "push-sim": "rollup -c --environment DEST:sim",
     "test": "jest",
+    "test-watch": "jest --watch",
     "test-unit": "mocha test/unit/**/*.ts",
     "test-integration": "echo 'See docs/in-depth/testing.md for instructions on enabling integration tests'",
     "watch-main": "rollup -cw --environment DEST:main",
