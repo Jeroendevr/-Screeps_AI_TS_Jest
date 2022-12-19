@@ -1,4 +1,4 @@
-import { isToBeFilled } from './harvester';
+import { isToBeFilled } from "./isToBeFilled";
 
 interface Koerier extends Creep {
     memory: KoerierMemory;
@@ -34,6 +34,9 @@ const roleKoerier = {
                 creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
             }
         }
+    },
+    keepDistanceToSource(creep: Koerier): void {
+        //pass
     }
 }
 

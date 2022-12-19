@@ -1,3 +1,4 @@
+import { isToBeFilled } from "./isToBeFilled";
 
 interface Harvester extends Creep {
   memory: HarvesterMemory
@@ -31,17 +32,6 @@ const roleHarvester = {
   }
 
 };
-
-function isToBeFilled(structure: Structure): boolean {
-  if (structure.structureType === STRUCTURE_EXTENSION
-    || structure.structureType === STRUCTURE_SPAWN
-    || structure.structureType === STRUCTURE_TOWER
-  ) {
-    const s = structure as StructureExtension | StructureSpawn | StructureTower;
-    return s.energy < s.energyCapacity;
-  }
-  return false;
-}
 
 function koerierNear(creep: Creep): boolean {
   const nearbyKoerier = creep.pos.findInRange(FIND_MY_CREEPS, 1, { filter: { memory: { role: 'koerier' } } })
