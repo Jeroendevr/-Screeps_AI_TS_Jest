@@ -22,13 +22,13 @@ const roleKoerier = {
         if (creep.memory.hauling) {
             haul_energy(creep)
         } else {
-            this.transferEnergy
+
+            this.transferEnergy(creep)
         }
 
     },
-    transferEnergy(creep: Creep): void {
+    transferEnergy(creep: Koerier): void {
         const targets = creep.room.find(FIND_MY_STRUCTURES, { filter: isToBeFilled });
-
         if (targets.length > 0) {
             if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
