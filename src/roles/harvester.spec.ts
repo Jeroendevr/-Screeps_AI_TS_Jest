@@ -1,6 +1,6 @@
 import { mockInstanceOf, mockStructure } from 'screeps-jest';
 import { roleHarvester } from './harvester';
-import { isToBeFilled } from "./isToBeFilled";
+import { isToBeFilled } from "../utils/isToBeFilled";
 
 const source1 = mockInstanceOf<Source>({ id: 'source1' as Id<Source> });
 const source2 = mockInstanceOf<Source>({ id: 'source2' as Id<Source> });

@@ -1,4 +1,4 @@
-import { isToBeFilled } from "./isToBeFilled";
+import { isToBeFilled } from "../utils/isToBeFilled";
 
 interface Harvester extends Creep {
   memory: HarvesterMemory

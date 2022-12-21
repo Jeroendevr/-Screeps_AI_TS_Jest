@@ -1,4 +1,5 @@
-import { isToBeFilled } from "./isToBeFilled";
+import { isToBeFilled } from "../utils/isToBeFilled";
+import { move_opposite_direction } from "../utils/pathfinding";
 
 interface Koerier extends Creep {
     memory: KoerierMemory;
@@ -25,10 +26,12 @@ const roleKoerier = {
 
             this.transferEnergy(creep)
         }
+        this.keepDistanceToSource(creep)
 
     },
     transferEnergy(creep: Koerier): void {
-        const targets = creep.room.find(FIND_MY_STRUCTURES, { filter: isToBeFilled });
+        // When not hauling
+        const targets = koerier_targets(creep)
         if (targets.length > 0) {
             if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
@@ -36,7 +39,16 @@ const roleKoerier = {
         }
     },
     keepDistanceToSource(creep: Koerier): void {
-        //pass
+        //Move atleast 2 pos from source if hauling
+        const source = creep.pos.findClosestByPath(FIND_SOURCES);
+        if (source) {
+            const range = creep.pos.getRangeTo(source)
+            if (range < 3) {
+                const direction = creep.pos.getDirectionTo(source)
+                console.log(direction)
+                move_opposite_direction(direction, creep);
+            }
+        }
     }
 }
 
@@ -45,6 +57,11 @@ function haul_energy(creep: Koerier): void {
     const harvesters = creep.room.find(FIND_MY_CREEPS, { filter: { memory: { role: 'harvester' } } })
     creep.moveTo(harvesters[0], { visualizePathStyle: { stroke: '#95e0e8' } })
 
+}
+
+function koerier_targets(creep: Koerier): Array<AnyOwnedStructure> {
+    const targets = creep.room.find(FIND_MY_STRUCTURES)
+    return targets
 }
 
 export {
