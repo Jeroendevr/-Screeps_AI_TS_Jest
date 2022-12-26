@@ -1,5 +1,6 @@
 import { constructionManager } from 'manager/constructor';
 import { infraManager } from 'manager/manager.infra';
+import { InfraManager2 } from 'manager/manager.infra2';
 import { spawnManager } from 'manager/manager.spawn';
 import { Builder, roleBuilder } from 'roles/builder';
 import { roleHarvester } from 'roles/harvester';
@@ -22,7 +23,7 @@ function unwrappedLoop(): void {
   spawnManager.run()
   infraManager.run()
   constructionManager.run()
-  // console.log(Game.rooms['E54N17'].find(FIND_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_EXTRACTOR } }).length)
+  run_owned_rooms()
 }
 
 function cleanMemory(): void {
@@ -32,6 +33,13 @@ function cleanMemory(): void {
     .forEach(name => delete Memory.creeps[name]);
 }
 
+function run_owned_rooms(): void {
+  for (const room in Game.rooms) {
+    if (Game.rooms[room].controller?.my == true) {
+      new InfraManager2(room).run()
+    }
+  }
+}
 
 
 function runAllTowers(): void {
