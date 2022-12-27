@@ -1,23 +1,42 @@
 class InfraManager {
+
     constructor (public room_name: string) {
         if  (!(room_name in Game.rooms)) {
             throw new Error("Roomname does not exits")}
         }
+        room :Room = Game.rooms[this.room_name]
 
     run(){
-        //pass
+        this.roads()
 
     }
 
     roads(){
-        //pass
+        this.road_spawn_energy()
     }
 
     road_spawn_energy(){
-        // #TODO calculate ideal road from spawn to energy
+        const spawn = this.room.find(FIND_MY_SPAWNS)
+        const sources = this.room.find(FIND_SOURCES)
+        if (spawn.length == 0 || sources.length == 0) {
+            throw new Error("Room has no spawn or source to create road")
+        }
+        const close_source = spawn[0].pos.findClosestByPath(sources)
+        const path = spawn[0].pos.findPathTo(close_source!.pos)
+        for (const j in path) {
+            this.create_construction_site(path[j])
+        }
+    }
+
+    create_construction_site(path_pos: PathStep) {
+        const ROOM_POS = new RoomPosition(path_pos.x, path_pos.y, this.room_name)
+        ROOM_POS.createConstructionSite(STRUCTURE_ROAD)
     }
 }
 
 export {
     InfraManager as InfraManager2
 }
+
+
+
