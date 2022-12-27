@@ -22,7 +22,10 @@ class InfraManager {
             throw new Error("Room has no spawn or source to create road")
         }
         const close_source = spawn[0].pos.findClosestByPath(sources)
-        const path = spawn[0].pos.findPathTo(close_source!.pos)
+        if (close_source == null) {
+            throw new Error("Can't create path to source")
+        }
+        const path = spawn[0].pos.findPathTo(close_source.pos)
         for (const j in path) {
             this.create_construction_site(path[j])
         }
