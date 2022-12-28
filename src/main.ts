@@ -1,4 +1,3 @@
-import { constructionManager } from 'manager/constructor';
 import { infraManager } from 'manager/manager.infra';
 import { InfraManager2 } from 'manager/manager.infra2';
 import { spawnManager } from 'manager/manager.spawn';
@@ -9,6 +8,7 @@ import { Koerier, roleKoerier } from 'roles/koerier';
 import roleUpgrader, { Upgrader } from 'roles/upgrader';
 import ErrorMapper from 'utils/ErrorMapper';
 import { runTower } from './tower';
+import { ConstructionManager } from 'manager/manager.construction';
 
 declare global {
   interface CreepMemory {
@@ -23,7 +23,6 @@ function unwrappedLoop(): void {
   runCreep()
   spawnManager.run()
   infraManager.run()
-  constructionManager.run()
   run_owned_rooms()
 
   // Util section
@@ -41,6 +40,7 @@ function run_owned_rooms(): void {
   for (const room in Game.rooms) {
     if (Game.rooms[room].controller?.my == true) {
       new InfraManager2(room).run()
+      new ConstructionManager(room).run()
     }
   }
 }

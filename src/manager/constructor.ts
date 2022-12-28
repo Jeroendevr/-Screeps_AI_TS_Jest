@@ -7,11 +7,6 @@ const comms = new Comms()
 const constructionManager = {
     run: function (): void {
 
-
-        if (Game.gcl.level < 2) {
-            this.gcl_lv2()
-        }
-
     },
 
     gcl_lv2: function (): void {
@@ -21,6 +16,8 @@ const constructionManager = {
         let location: RoomPosition = find_suitable_extension_site(mySpawnObj.pos, roomName)
         this.createExtenstions(location)
     },
+
+
 
     createExtenstions: function (location: RoomPosition): void {
         location.createConstructionSite(STRUCTURE_EXTENSION)

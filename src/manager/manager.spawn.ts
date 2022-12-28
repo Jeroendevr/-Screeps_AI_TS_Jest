@@ -22,6 +22,9 @@ const spawnManager = {
         let screepAmount = spawn_amount
 
         const mySpawn = 'Spawn1'
+        const structure_spawn = Game.spawns[mySpawn]
+        const ROOM = structure_spawn.room
+        const BodyPart = new BodyParts()
 
         if (isAvailable(Game.spawns[mySpawn])) {
             const harvesters = countRole('harvester')
@@ -40,9 +43,9 @@ const spawnManager = {
             }
             else if (builders < screepAmount.builder) {
                 const newName: string = 'Builder' + String(Game.time);
-                const builderBody: BodyPartConstant[] = [WORK, CARRY, MOVE, MOVE]
+                const builderBody = BodyPart.builder()
                 if (sufficientCapacity(Game.spawns[mySpawn], builderBody) === true) {
-                    console.log('Spwaning new builders: ' + newName);
+                    console.log('Spawning new builders: ' + newName);
                     Game.spawns[mySpawn].spawnCreep(builderBody, newName,
                         { memory: { role: 'builder' } })
                 }
@@ -74,8 +77,19 @@ const spawnManager = {
 class spawnAmount {
     harvester: number = 1;
     koerier: number = 1;
-    builder: number = 1;
-    upgrader: number = 1
+    builder: number = 2;
+    upgrader: number = 1;
+
+}
+
+class BodyParts {
+
+
+    builder() {
+        const builderBody :BodyPartConstant[] = [WORK, CARRY, CARRY, MOVE, MOVE]
+        return builderBody
+    }
+
 }
 
 const spawn_amount = new spawnAmount()

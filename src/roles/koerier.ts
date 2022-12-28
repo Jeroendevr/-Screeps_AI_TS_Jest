@@ -37,7 +37,9 @@ const roleKoerier = {
         if (targets.length > 0) {
             if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.memory.target = targets[0]
-                creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
+                creep.moveTo(targets[0], { visualizePathStyle: {
+                    stroke: '#41B0F6',
+                    opacity: .2 } });
             }
         }
     },
