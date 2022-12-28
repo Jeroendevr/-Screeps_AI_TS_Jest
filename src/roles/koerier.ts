@@ -1,3 +1,4 @@
+import { filter } from "lodash";
 import { isToBeFilled } from "../utils/isToBeFilled";
 import { move_opposite_direction } from "../utils/pathfinding";
 
@@ -62,7 +63,8 @@ function haul_energy(creep: Koerier): void {
 }
 
 function koerier_targets(creep: Koerier): Array<AnyOwnedStructure> {
-    const targets = creep.room.find(FIND_MY_STRUCTURES)
+    const targets = creep.room.find(FIND_MY_STRUCTURES, {
+        filter: isToBeFilled })
     return targets
 }
 
