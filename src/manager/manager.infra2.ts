@@ -25,7 +25,7 @@ class InfraManager {
         if (close_source == null) {
             throw new Error("Can't create path to source")
         }
-        const path = spawn[0].pos.findPathTo(close_source.pos)
+        const path = spawn[0].pos.findPathTo(close_source.pos, {ignoreCreeps: true} )
         for (const j in path) {
             this.create_construction_site(path[j])
         }

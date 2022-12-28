@@ -4,6 +4,7 @@ import { InfraManager2 } from 'manager/manager.infra2';
 import { spawnManager } from 'manager/manager.spawn';
 import { Builder, roleBuilder } from 'roles/builder';
 import { roleHarvester } from 'roles/harvester';
+import { RemoveConstructionSite } from 'utils/remove_constuctsite';
 import { Koerier, roleKoerier } from 'roles/koerier';
 import roleUpgrader, { Upgrader } from 'roles/upgrader';
 import ErrorMapper from 'utils/ErrorMapper';
@@ -24,6 +25,9 @@ function unwrappedLoop(): void {
   infraManager.run()
   constructionManager.run()
   run_owned_rooms()
+
+  // Util section
+  // run_nonstandard_utils()
 }
 
 function cleanMemory(): void {
@@ -73,6 +77,11 @@ function runCreep(): void {
       roleKoerier.run(creep as Koerier);
     }
   });
+}
+
+function run_nonstandard_utils() {
+  //Mostly run once
+  new RemoveConstructionSite('E3S34').run()
 }
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change

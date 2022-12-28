@@ -1,5 +1,6 @@
 import { mockGlobal, mockInstanceOf, mockStructure } from 'screeps-jest';
 import { mockRoomPositionConstructor } from 'screeps-jest/dist/src/mocking';
+import { RemoveConstructionSite } from 'utils/remove_constuctsite';
 import { cleanMemory, runAllTowers, runCreep } from './main';
 import { roleBuilder } from './roles/builder';
 import { roleHarvester } from './roles/harvester';
