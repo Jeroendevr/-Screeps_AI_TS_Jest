@@ -27,11 +27,15 @@ class Comms {
 type SiteLocationBuilding = [number, number, BuildableStructureConstant];
 
 class RoomComms extends RoomManager {
-    construction_sites :SiteLocationBuilding[] = [];
+    _construction_sites :SiteLocationBuilding[] = [];
 
     add_constrution_site(SITE: SiteLocationBuilding){
-        this.construction_sites.push(SITE)
+        this._construction_sites.push(SITE)
 
+    }
+
+    get construction_sites() {
+        return this._construction_sites
     }
 }
 

@@ -26,5 +26,6 @@ describe('RoomComs', () => {
         const site :SiteLocationBuilding = [0,0, STRUCTURE_ROAD]
 
         RC.add_constrution_site(site);
+        expect(RC.construction_sites[0]).toBe(site)
     })
 })
