@@ -20,5 +20,7 @@ function gcl_lv2_structures(nr: number) {
     const arr = structure.get(nr)
     return arr
 }
-export { building_layout }
+export {
+    building_layout
+}
 
