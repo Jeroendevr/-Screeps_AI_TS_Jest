@@ -50,7 +50,7 @@ const roleKoerier = {
             const range = creep.pos.getRangeTo(source)
             if (range < 3) {
                 const direction = creep.pos.getDirectionTo(source)
-                console.log(direction)
+                // console.log(direction)
                 move_opposite_direction(direction, creep);
             }
         }

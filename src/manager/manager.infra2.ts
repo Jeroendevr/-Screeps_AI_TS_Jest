@@ -25,7 +25,8 @@ class InfraManager {
         if (close_source == null) {
             throw new Error("Can't create path to source")
         }
-        const path = spawn[0].pos.findPathTo(close_source.pos, {ignoreCreeps: true} )
+        var path = spawn[0].pos.findPathTo(close_source.pos, {ignoreCreeps: true} )
+
         for (const j in path) {
             this.create_construction_site(path[j])
         }
@@ -33,6 +34,11 @@ class InfraManager {
 
     create_construction_site(path_pos: PathStep) {
         const ROOM_POS = new RoomPosition(path_pos.x, path_pos.y, this.room_name)
+        const terrain = ROOM_POS.lookFor("terrain")
+        if (terrain.includes("wall")) {
+            // Dont build roards on walls
+            return
+        }
         ROOM_POS.createConstructionSite(STRUCTURE_ROAD)
     }
 }

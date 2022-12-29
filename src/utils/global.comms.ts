@@ -20,7 +20,6 @@ class Comms {
             default:
                 console.log('Cannot handle more resource of ${expr}.')
         }
-
     }
 }
 
