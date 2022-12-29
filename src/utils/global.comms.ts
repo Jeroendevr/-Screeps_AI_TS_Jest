@@ -1,6 +1,9 @@
 // Global communication class
 
-export class Comms {
+
+import { RoomManager } from "manager/manager";
+
+class Comms {
     private static _instance: Comms;
 
     // Singleton
@@ -19,4 +22,13 @@ export class Comms {
         }
 
     }
+}
+
+class RoomComms extends RoomManager {
+
+}
+
+export {
+    Comms,
+    RoomComms
 }
