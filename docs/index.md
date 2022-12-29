@@ -17,6 +17,13 @@ contain the root `toctree` directive.
 building.md
 ```
 
+```{toctree}
+:maxdepth: 2
+:caption: Game
+
+memory.md
+```
+
 # Indices and tables
 
 <!--
