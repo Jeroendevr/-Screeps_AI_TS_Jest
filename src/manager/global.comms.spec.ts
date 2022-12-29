@@ -12,5 +12,6 @@ describe('RoomComs', () => {
             }
         })
         const RC = new RoomComms('A1A1')
+        expect(RC).toBeInstanceOf(RoomComms)
     })
 })
