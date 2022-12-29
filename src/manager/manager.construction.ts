@@ -1,4 +1,5 @@
 import { building_layout } from "./building_layout";
+import { RoomComms } from "utils/global.comms";
 
 class ConstructionManager {
 
@@ -22,8 +23,11 @@ class ConstructionManager {
         }
 
         extensions(){
+            const RC = new RoomComms(this.room_name)
             const location : RoomPosition = this.find_suitable_extension_site(this.room.find(FIND_MY_SPAWNS)[0].pos, this.room_name)
             this.createExtenstions(location)
+            RC.add_constrution_site(location, STRUCTURE_EXTENSION)
+
         }
 
         find_suitable_extension_site(spawn_pos: RoomPosition, roomName: string): RoomPosition {

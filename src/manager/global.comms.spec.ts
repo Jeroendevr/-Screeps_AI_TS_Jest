@@ -1,6 +1,6 @@
 import { mockGlobal, mockInstanceOf } from "screeps-jest"
+import { mockRoomPositionConstructor } from "screeps-jest/dist/src/mocking"
 import { RoomComms } from "utils/global.comms"
-import { SiteLocationBuilding } from "utils/global.comms"
 
 
 const MyRoom = mockInstanceOf<Room>()
@@ -8,6 +8,11 @@ const MyGame = mockGlobal<Game>('Game', {
     rooms: {
         'A1A1':MyRoom
     }
+})
+mockRoomPositionConstructor(global);
+const MyRoomPos = mockInstanceOf<RoomPosition>( {
+    x: 1,
+    y: 1
 })
 
 describe('RoomComs', () => {
@@ -23,9 +28,8 @@ describe('RoomComs', () => {
     it('adds a construction site', () => {
         MyGame
         const RC = new RoomComms('A1A1');
-        const site :SiteLocationBuilding = [0,0, STRUCTURE_ROAD]
 
-        RC.add_constrution_site(site);
-        expect(RC.construction_sites[0]).toBe(site)
+        RC.add_constrution_site(MyRoomPos,STRUCTURE_ROAD );
+        expect(RC.construction_sites[0]).toStrictEqual([{x: 1, y: 1}, "road"])
     })
 })

@@ -5,8 +5,12 @@ import { ConstructionManager } from "./manager.construction";
 const roomWithoutController = mockInstanceOf<Room>({
     controller:undefined,
     name:'A1A1',
+    })
+
+const MyGame = mockGlobal<Game>('Game', {
 
 })
+
 describe('run', () => {
     it ('Does not have a controller', () => {
         mockGlobal<Game> ('Game', {
@@ -19,4 +23,9 @@ describe('run', () => {
         }).toThrow()
     }
     )
+    it ('adds a construction site to RoomComms', () => {
+        MyGame;
+
+
+    })
 })

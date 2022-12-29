@@ -24,23 +24,20 @@ class Comms {
     }
 }
 
-type SiteLocationBuilding = [number, number, BuildableStructureConstant];
-
 class RoomComms extends RoomManager {
-    _construction_sites :SiteLocationBuilding[] = [];
+    static _construction_sites :[RoomPosition, BuildableStructureConstant][] = [];
 
-    add_constrution_site(SITE: SiteLocationBuilding){
-        this._construction_sites.push(SITE)
+    add_constrution_site(pos: RoomPosition, building: BuildableStructureConstant){
+        RoomComms._construction_sites.push([pos, building])
 
     }
 
     get construction_sites() {
-        return this._construction_sites
+        return RoomComms._construction_sites
     }
 }
 
 export {
     Comms,
     RoomComms,
-    SiteLocationBuilding
 }
