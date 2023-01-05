@@ -15,9 +15,6 @@ const roleBuilder = {
     if (constructionManager.possible_to_build_tower()) {
       //
     }
-    else {
-      //TODO:
-    }
 
     if (creep.memory.building && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.building = false;
@@ -29,6 +26,7 @@ const roleBuilder = {
     }
 
     if (creep.memory.building) {
+      creep.say('🪚')
       work_on_construction_sites(creep)
     } else {
       gather_resource(creep)

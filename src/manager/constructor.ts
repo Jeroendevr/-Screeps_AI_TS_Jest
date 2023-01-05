@@ -1,6 +1,8 @@
 import { building_layout } from "./building_layout"
 import { Comms } from "utils/global.comms"
 
+
+// Depreceated module
 const comms = new Comms()
 
 // Responsible for structures

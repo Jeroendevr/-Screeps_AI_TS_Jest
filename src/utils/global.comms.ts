@@ -2,6 +2,7 @@
 
 
 import { RoomManager } from "manager/manager";
+import { Transform } from "stream";
 
 class Comms {
     private static _instance: Comms;
@@ -25,6 +26,7 @@ class Comms {
 
 class RoomComms extends RoomManager {
     static _construction_sites :[RoomPosition, BuildableStructureConstant][] = [];
+    static _construction_site_wanted: boolean = false
 
     add_constrution_site(pos: RoomPosition, building: BuildableStructureConstant){
         RoomComms._construction_sites.push([pos, building])
@@ -34,6 +36,12 @@ class RoomComms extends RoomManager {
     get construction_sites() {
         return RoomComms._construction_sites
     }
+
+    set constriction_sites_wanted(yn: boolean) {
+        RoomComms._construction_site_wanted = yn
+    }
+
+
 }
 
 export {

@@ -2,6 +2,7 @@ import { infraManager } from 'manager/manager.infra';
 import { InfraManager2 } from 'manager/manager.infra2';
 import { spawnManager } from 'manager/manager.spawn';
 import { Builder, roleBuilder } from 'roles/builder';
+import { BuilderClass, BuilderRole } from 'roles/builderv2';
 import { roleHarvester } from 'roles/harvester';
 import { RemoveConstructionSite } from 'utils/remove_constuctsite';
 import { Koerier, roleKoerier } from 'roles/koerier';
@@ -59,6 +60,12 @@ function runAllTowers(): void {
 }
 
 function runCreep(): void {
+/**
+* Init the classes
+*/
+
+
+
   Object.values(Game.creeps).forEach(creep => {
     if (creep.memory.role === 'harvester') {
       roleHarvester.run(creep);
@@ -68,7 +75,10 @@ function runCreep(): void {
     }
     if (creep.memory.role === 'builder') {
       try {
+
         roleBuilder.run(creep as Builder);
+        const Builder = new BuilderClass();
+        Builder.run(creep as BuilderRole)
       } catch (error) {
         console.log(creep.memory.role + error)
       }

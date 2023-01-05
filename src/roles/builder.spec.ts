@@ -28,7 +28,8 @@ describe('Builder role', () => {
         role: 'builder'
       },
       room: { find: () => [cs1, cs2] },
-      build: () => OK
+      build: () => OK,
+      say: ()=> OK
     });
 
 
@@ -63,7 +64,8 @@ describe('Builder role', () => {
       },
       room: { find: () => [cs1, cs2] },
       build: () => ERR_NOT_IN_RANGE,
-      moveTo: () => OK
+      moveTo: () => OK,
+      say: () => OK,
     });
 
     roleBuilder.run(creep);
