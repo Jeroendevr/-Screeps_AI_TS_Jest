@@ -33,7 +33,10 @@ class BuilderClass {
 
     construction_site_available():boolean {
         const targets = this.creep.room.find(FIND_CONSTRUCTION_SITES)
-        return true
+        if (targets.length > 0) {
+            return true
+        }
+        return false
     }
 }
 
