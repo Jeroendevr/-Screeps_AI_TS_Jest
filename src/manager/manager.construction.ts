@@ -38,9 +38,24 @@ class ConstructionManager {
    */
   find_suitable_extension_site(spawn_pos: RoomPosition, roomName: string): RoomPosition {
     const layout = building_layout(spawn_pos);
-    // console.log(layout)
     const extension_site = new RoomPosition(layout[0], layout[1], roomName);
-    return extension_site;
+    if (this.pos_available_construction(extension_site)) {
+      return extension_site;
+    }
+    // Return suitable extension site if cant be found
+    throw new Error("Cannot find a suitable extension site");
+  }
+  /**
+   *
+   * @param con_pos
+   * @returns true if position available for construction
+   */
+  pos_available_construction(con_pos: RoomPosition): boolean {
+    if (!con_pos.lookFor(LOOK_CONSTRUCTION_SITES || LOOK_STRUCTURES)) {
+      return true;
+    }
+
+    return false;
   }
 
   createExtenstions(location: RoomPosition): void {
