@@ -36,6 +36,9 @@ class ConstructionManager {
         }
 
         find_suitable_extension_site(spawn_pos: RoomPosition, roomName: string): RoomPosition {
+            /**
+             * Return a RoomPosition suitable for a extension site
+             */
             const layout = building_layout(spawn_pos)
             // console.log(layout)
             const extension_site = new RoomPosition(layout[0], layout[1], roomName)
