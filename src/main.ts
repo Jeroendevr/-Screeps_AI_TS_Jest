@@ -1,15 +1,15 @@
-import { infraManager } from 'manager/manager.infra';
-import { InfraManager2 } from 'manager/manager.infra2';
-import { spawnManager } from 'manager/manager.spawn';
-import { Builder, roleBuilder } from 'roles/builder';
-import { BuilderClass, BuilderRole } from 'roles/builderv2';
-import { roleHarvester } from 'roles/harvester';
-import { RemoveConstructionSite } from 'utils/remove_constuctsite';
-import { Koerier, roleKoerier } from 'roles/koerier';
-import roleUpgrader, { Upgrader } from 'roles/upgrader';
-import ErrorMapper from 'utils/ErrorMapper';
-import { runTower } from './tower';
-import { ConstructionManager } from 'manager/manager.construction';
+import { infraManager } from "manager/manager.infra";
+import { InfraManager2 } from "manager/manager.infra2";
+import { spawnManager } from "manager/manager.spawn";
+import { Builder, roleBuilder } from "roles/builder";
+import { BuilderClass, BuilderRole } from "roles/builderv2";
+import { roleHarvester } from "roles/harvester";
+import { RemoveConstructionSite } from "utils/remove_constuctsite";
+import { Koerier, roleKoerier } from "roles/koerier";
+import roleUpgrader, { Upgrader } from "roles/upgrader";
+import ErrorMapper from "utils/ErrorMapper";
+import { runTower } from "./tower";
+import { ConstructionManager } from "manager/manager.construction";
 
 declare global {
   interface CreepMemory {
@@ -19,12 +19,12 @@ declare global {
 
 function unwrappedLoop(): void {
   // console.log(`Current game tick is ${Game.time}`);
-  cleanMemory()
-  runAllTowers()
-  runCreep()
-  spawnManager.run()
-  infraManager.run()
-  run_owned_rooms()
+  cleanMemory();
+  runAllTowers();
+  runCreep();
+  spawnManager.run();
+  infraManager.run();
+  run_owned_rooms();
 
   // Util section
   // run_nonstandard_utils()
@@ -40,12 +40,11 @@ function cleanMemory(): void {
 function run_owned_rooms(): void {
   for (const room in Game.rooms) {
     if (Game.rooms[room].controller?.my == true) {
-      new InfraManager2(room).run()
-      new ConstructionManager(room).run()
+      new InfraManager2(room).run();
+      new ConstructionManager(room).run();
     }
   }
 }
-
 
 function runAllTowers(): void {
   Object.values(Game.rooms).forEach(room => {
@@ -56,34 +55,31 @@ function runAllTowers(): void {
         runTower(tower);
       });
     }
-  })
+  });
 }
 
 function runCreep(): void {
-/**
-* Init the classes
-*/
-
-
+  /**
+   * Init the classes
+   */
 
   Object.values(Game.creeps).forEach(creep => {
-    if (creep.memory.role === 'harvester') {
+    if (creep.memory.role === "harvester") {
       roleHarvester.run(creep);
     }
-    if (creep.memory.role === 'upgrader') {
+    if (creep.memory.role === "upgrader") {
       roleUpgrader.run(creep as Upgrader);
     }
-    if (creep.memory.role === 'builder') {
+    if (creep.memory.role === "builder") {
       try {
-
         roleBuilder.run(creep as Builder);
         const Builder = new BuilderClass();
-        Builder.run(creep as BuilderRole)
+        Builder.run(creep as BuilderRole);
       } catch (error) {
-        console.log(creep.memory.role + error)
+        console.log(creep.memory.role + error);
       }
     }
-    if (creep.memory.role === 'koerier') {
+    if (creep.memory.role === "koerier") {
       roleKoerier.run(creep as Koerier);
     }
   });
@@ -91,17 +87,11 @@ function runCreep(): void {
 
 function run_nonstandard_utils() {
   //Mostly run once
-  new RemoveConstructionSite('E3S34').run()
+  new RemoveConstructionSite("E3S34").run();
 }
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 const loop = ErrorMapper.wrapLoop(unwrappedLoop);
 
-export {
-  loop,
-  cleanMemory,
-  runCreep,
-  runAllTowers
-
-};
+export { loop, cleanMemory, runCreep, runAllTowers };

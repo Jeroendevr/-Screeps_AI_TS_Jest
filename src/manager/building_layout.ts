@@ -1,8 +1,8 @@
+/**
+ * @param pos position of the structure you want to build around for example spawn
+ * @returns [x pos , y pos, A structure constant]
+ */
 function building_layout(pos: RoomPosition): [number, number, string] {
-  /**
-   *
-   * @returns [x pos , y pos, A structure constant]
-   */
   let next_structure_site = gcl_lv2_structures(1)!;
   next_structure_site[0] = next_structure_site[0] + pos.x;
   next_structure_site[1] = next_structure_site[1] + pos.y;
