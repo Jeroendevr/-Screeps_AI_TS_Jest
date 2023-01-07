@@ -26,4 +26,41 @@ function gcl_lv2_structures(nr: number) {
   const arr = structure.get(nr);
   return arr;
 }
-export { building_layout };
+
+function extension_layout(pos: RoomPosition) {
+  while (!gcl_lvl2_extensions().next().done) {
+    let extension_gen = gcl_lvl2_extensions().next().value;
+    extension_gen[0] = extension_gen[0] + pos.x;
+    extension_gen[1] = extension_gen[1] + pos.y;
+    return extension_gen;
+  }
+
+  throw new Error("could not found a new extension layout");
+}
+
+/**
+ *
+ * @returns an array with a relative x and Y position marked for extensions
+ */
+function* gcl_lvl2_extensions() {
+  const extension_locations: [number, number, string][] = [
+    [+1, -1, "extension"],
+    [+2, +0, "extension"]
+  ];
+  const i = 0;
+  while (i < extension_locations.length) {
+    yield extension_locations[i];
+  }
+  return extension_locations[i];
+}
+
+const string_gen = return_string();
+
+const hi: string = string_gen.next().value;
+
+function* return_string() {
+  yield "hello";
+  return "no result";
+}
+
+export { building_layout, extension_layout };
