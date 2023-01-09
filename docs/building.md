@@ -31,10 +31,6 @@ Roads first, create or reserve at least space for the main roads. After that fil
 **Extension**
 Build the extensions dynamically.
 
-# TODO
-
-- Just build in clusters of 4 if possible close to the spawn
-
 #### Main Roads
 
 Main roads are
