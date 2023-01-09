@@ -1,4 +1,5 @@
 import { mockGlobal, mockInstanceOf, mockStructure } from "screeps-jest";
+import { gcl_lvl2_extensions } from "./building_layout";
 import { constructionManager } from "./constructor";
 import { ConstructionManager } from "./manager.construction";
 
@@ -11,7 +12,7 @@ const mySpawnPos = mockInstanceOf<RoomPosition>({
 const myNewConstrSite = mockInstanceOf<RoomPosition>({
   x: 11,
   y: 11,
-  lookFor: () => {}
+  lookFor: () => []
 });
 const myOccupiedConstrSite = mockInstanceOf<RoomPosition>({
   x: 10,
@@ -21,7 +22,7 @@ const myOccupiedConstrSite = mockInstanceOf<RoomPosition>({
 const suitableConstrSite = mockInstanceOf<RoomPosition>({
   x: 12,
   y: 10,
-  lookFor: () => {}
+  lookFor: () => []
 });
 
 const ROOM_NAME = "A1A1";
@@ -59,8 +60,8 @@ describe("run", () => {
     MyGame;
   });
   it("is an available construction site", () => {
-    const CON_MAN = new ConstructionManager(ROOM_NAME);
-    expect(CON_MAN.pos_available_construction(myNewConstrSite)).toBeTruthy;
+    const CONSTRCT_MAN = new ConstructionManager(ROOM_NAME);
+    expect(CONSTRCT_MAN.pos_available_construction(myNewConstrSite)).toBeTruthy;
   });
   it("Tries to place a stucture on the spawn", () => {
     const CON_MAN = new ConstructionManager(ROOM_NAME);
@@ -71,5 +72,10 @@ describe("run", () => {
     const CON_MAN = new ConstructionManager(ROOM_NAME);
     const ROOM_POS = CON_MAN.pos_available_construction(suitableConstrSite);
     expect(ROOM_POS == true);
+  });
+  it("Test the first three possible extension sites", () => {
+    var extension_gen: [number, number, string];
+    const CLE = gcl_lvl2_extensions();
+    var result = CLE.next();
   });
 });
