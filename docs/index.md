@@ -1,9 +1,11 @@
-Screeps AI documentation master file, created by
-sphinx-quickstart on Thu Dec 29 12:50:47 2022.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive.
-
 # Welcome to Screeps AI's documentation!
+
+```{admonition} Task list
+- Increase tower energy reserves
+  - Increase harvesting of energy
+    - [ ] Using bigger screeps utilizing the energy from extensions
+
+```
 
 ```{toctree}
 :maxdepth: 2
