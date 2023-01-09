@@ -1,5 +1,3 @@
-import { isAvailable } from "spawn";
-import { countRole } from "utils/memory.role";
 import { Comms } from "utils/global.comms";
 
 const spawnManager = {
@@ -16,7 +14,7 @@ const spawnManager = {
     }
   },
 
-  spawn: function (): void {
+  spawn(): void {
     let screepAmount = spawn_amount;
 
     const mySpawn = "Spawn1";
@@ -24,11 +22,11 @@ const spawnManager = {
     const ROOM = structure_spawn.room;
     const BodyPart = new BodyParts();
 
-    if (isAvailable(Game.spawns[mySpawn])) {
-      const harvesters = countRole("harvester");
-      const builders = countRole("builder");
-      const upgrader = countRole("upgrader");
-      const koerier = countRole("koerier");
+    if (this.isAvailable(Game.spawns[mySpawn])) {
+      const harvesters = this.countRole("harvester");
+      const builders = this.countRole("builder");
+      const upgrader = this.countRole("upgrader");
+      const koerier = this.countRole("koerier");
 
       if (harvesters < screepAmount.harvester) {
         const creepBody: BodyPartConstant[] = [WORK, CARRY, MOVE, WORK];
@@ -62,8 +60,21 @@ const spawnManager = {
     }
   },
 
+  countRole(role: string): number {
+    const rollers = Object.values(Game.creeps).filter(creep => creep.memory.role === role).length;
+    return rollers;
+  },
+
   increase_creep: function (): void {
     // TODO when a role is passed, increase the role count for this creep
+  },
+
+  isAvailable(spawn: StructureSpawn): boolean {
+    if (spawn.spawning === null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 

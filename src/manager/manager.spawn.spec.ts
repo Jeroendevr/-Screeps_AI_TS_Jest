@@ -1,14 +1,18 @@
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
 import { BodyParts, spawnManager, sufficientCapacity } from "./manager.spawn";
 import { countRole } from "utils/memory.role";
+import exp from "constants";
+import { strict } from "assert";
 
 const mySpawn = mockInstanceOf<StructureSpawn>({
   room: { energyAvailable: 400 },
   name: "Spawn1",
-  isAvailable: () => true,
-  spawning: () => false,
+  spawning: null,
   spawnCreep: jest.fn()
 });
+
+const SPYCOUNTROLE = jest.spyOn(spawnManager, "countRole");
+spawnManager.countRole = jest.fn(() => 0);
 
 describe("spawn manager", () => {
   it("calcs body parts", () => {
@@ -35,7 +39,10 @@ describe("spawn manager", () => {
     });
 
     spawnManager.spawn();
-    // console.log(countRole("harvester"));
+    expect(mySpawn.spawnCreep).toBeCalled();
+    expect(mySpawn.spawnCreep).toBeCalledWith([WORK, CARRY, MOVE, WORK], expect.any(String), {
+      memory: { role: "harvester" }
+    });
   });
 });
 const room = mockInstanceOf<Room>({});
