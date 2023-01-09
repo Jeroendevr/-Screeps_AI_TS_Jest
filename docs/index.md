@@ -28,9 +28,16 @@ building.md
 memory.md
 ```
 
+```{toctree}
+:maxdepth: 1
+:caption: JS/TS Conventions in this project
+
+convention.md
+
 # Indices and tables
 
 <!--
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search` -->
+```

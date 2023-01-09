@@ -1,4 +1,4 @@
-import { return_string, yield_two_strings, yield_two_array, yield_three_strings_return } from "generators";
+import { return_string, yield_two_strings, yield_two_array, yield_three_strings_return } from "reference/generators";
 
 describe("generators", () => {
   it("Two strings", () => {
