@@ -29,11 +29,13 @@ const spawnManager = {
       const koerier = this.countRole("koerier");
 
       if (harvesters < screepAmount.harvester) {
-        const creepBody: BodyPartConstant[] = [WORK, CARRY, MOVE, WORK];
-        if (sufficientCapacity(Game.spawns[mySpawn], creepBody) === true) {
-          const newName: string = "Harvester" + String(Game.time);
-          console.log("Spawning new harvester: " + newName);
-          Game.spawns[mySpawn].spawnCreep(creepBody, newName, { memory: { role: "harvester" } });
+        const creepBody: BodyPartConstant[] | null = BodyPart.harvester(ROOM.energyAvailable);
+        if (creepBody != null) {
+          if (sufficientCapacity(Game.spawns[mySpawn], creepBody) === true) {
+            const newName: string = "Harvester" + String(Game.time);
+            console.log("Spawning new harvester: " + newName);
+            Game.spawns[mySpawn].spawnCreep(creepBody, newName, { memory: { role: "harvester" } });
+          }
         }
       } else if (builders < screepAmount.builder) {
         const newName: string = "Builder" + String(Game.time);

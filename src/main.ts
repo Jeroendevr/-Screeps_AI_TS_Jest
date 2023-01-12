@@ -23,7 +23,6 @@ function unwrappedLoop(): void {
   runAllTowers();
   runCreep();
   spawnManager.run();
-  infraManager.run();
   run_owned_rooms();
 
   // Util section

@@ -3,7 +3,10 @@
 ```{admonition} Task list
 - Increase tower energy reserves
   - Increase harvesting of energy
-    - [ ] Using bigger screeps utilizing the energy from extensions
+    - [x] Using bigger harvesting utilizing the energy from extensions
+    - [x] Write test for bigger harvesters
+  - Decrease repairing non usefull roads
+   - [ ] Improve construction of roads so that there is no tunnel digged to the energy source.
 
 ```
 
