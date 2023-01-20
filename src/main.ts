@@ -1,4 +1,3 @@
-import { infraManager } from "manager/manager.infra";
 import { InfraManager2 } from "manager/manager.infra2";
 import { spawnManager } from "manager/manager.spawn";
 import { Builder, roleBuilder } from "roles/builder";
@@ -9,6 +8,7 @@ import { Koerier, roleKoerier } from "roles/koerier";
 import roleUpgrader, { Upgrader } from "roles/upgrader";
 import ErrorMapper from "utils/ErrorMapper";
 import { runTower } from "./tower";
+import { TowerVisual } from "visuals/tower_vis";
 import { ConstructionManager } from "manager/manager.construction";
 
 declare global {
@@ -52,6 +52,7 @@ function runAllTowers(): void {
 
       towers.forEach(tower => {
         runTower(tower);
+        new TowerVisual(tower).visualize();
       });
     }
   });

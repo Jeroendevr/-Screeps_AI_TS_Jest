@@ -26,7 +26,8 @@ class InfraManager {
     if (close_source == null) {
       throw new Error("Can't create path to source");
     }
-    var path = spawn[0].pos.findPathTo(close_source.pos, { ignoreCreeps: true });
+    const spawn_pos = spawn[0].pos;
+    var path = road_path(spawn_pos, close_source.pos);
 
     for (const j in path) {
       this.create_construction_site(path[j]);
@@ -44,4 +45,15 @@ class InfraManager {
   }
 }
 
-export { InfraManager as InfraManager2 };
+/**
+ * Return the path between two objects suitable for building roads
+ * difference with findpathto is is one off from start and destination.
+ * To prevent tunnels being built to sources
+ */
+function road_path(start: RoomPosition, end: RoomPosition) {
+  var path = start.findPathTo(end, { ignoreCreeps: true });
+  path = path.slice(1, -1);
+  return path;
+}
+
+export { InfraManager as InfraManager2, road_path };

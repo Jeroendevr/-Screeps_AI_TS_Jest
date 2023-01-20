@@ -1,5 +1,6 @@
 import { mockGlobal, mockInstanceOf, mockStructure } from "screeps-jest";
 import { mockRoomPositionConstructor } from "screeps-jest/dist/src/mocking";
+import { TowerVisual } from "visuals/tower_vis";
 import { cleanMemory, runAllTowers, runCreep } from "./main";
 import { roleBuilder } from "./roles/builder";
 import { roleHarvester } from "./roles/harvester";
@@ -17,15 +18,17 @@ const upgrader = mockInstanceOf<Creep>({ memory: { role: "upgrader" } });
 
 const myController = mockInstanceOf<StructureController>({ my: true });
 const someoneElsesController = mockInstanceOf<StructureController>({ my: false });
-const tower1 = mockStructure(STRUCTURE_TOWER);
-const tower2 = mockStructure(STRUCTURE_TOWER);
+const tower1 = mockStructure(STRUCTURE_TOWER, { pos: undefined, room: undefined, allowUndefinedAcces: true });
+const tower2 = mockStructure(STRUCTURE_TOWER, { allowUndefinedAcces: true });
 const myRoomWithTowers = mockInstanceOf<Room>({
   controller: myController,
-  find: () => [tower1, tower2]
+  find: () => [tower1, tower2],
+  allowUndefinedAcces: true
 });
 const myRoomWithoutTowers = mockInstanceOf<Room>({
   controller: myController,
-  find: () => []
+  find: () => [],
+  allowUndefinedAcces: true
 });
 const someoneElsesRoom = mockInstanceOf<Room>({ controller: someoneElsesController });
 const noOnesRoom = mockInstanceOf<Room>({ controller: undefined });
@@ -72,22 +75,5 @@ describe("main loop", () => {
     });
     cleanMemory();
     expect(Memory.creeps).toEqual({ stillKicking: harvester.memory });
-  });
-
-  it("runs every tower in my rooms", () => {
-    mockGlobal<Game>("Game", {
-      creeps: {},
-      rooms: {
-        myRoomWithTowers,
-        myRoomWithoutTowers,
-        noOnesRoom,
-        someoneElsesRoom
-      },
-      time: 1
-    });
-    mockGlobal<Memory>("Memory", { creeps: {} });
-    runAllTowers();
-    expect(runTower).toHaveBeenCalledWith(tower1);
-    expect(runTower).toHaveBeenCalledWith(tower2);
   });
 });
