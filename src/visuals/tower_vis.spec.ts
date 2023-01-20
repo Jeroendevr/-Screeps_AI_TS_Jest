@@ -1,5 +1,4 @@
 import { mockStructure } from "screeps-jest";
-import { TowerVisual } from "./tower_vis";
 
 const myTower = mockStructure(STRUCTURE_TOWER, {
   pos: undefined,

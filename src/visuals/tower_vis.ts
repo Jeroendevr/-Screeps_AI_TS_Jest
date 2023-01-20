@@ -3,24 +3,18 @@
  */
 
 class TowerVisual {
-  towers: Id<StructureTower>[] = [];
+  towers_id: Id<StructureTower>[] = [];
+  towers: StructureTower[] = [];
 
-  constructor() {
-    Object.values(Game.rooms).forEach(room => {
-      if (room.controller?.my) {
-        const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
-        towers.forEach(tower => {
-          this.towers.push(tower.id);
-        });
-      }
-    });
+  add_towers(towers: StructureTower[]) {
+    this.towers = towers;
   }
 
   /**
    * For each tower Id create a tower instance
    */
   visualize() {
-    this.towers.forEach(towerId => {
+    this.towers_id.forEach(towerId => {
       this.energy_lvl_update(towerId);
       this.energy_lvl_vis(towerId);
     });

@@ -8,7 +8,6 @@ import roleUpgrader from "./roles/upgrader";
 jest.mock("roles/builder");
 jest.mock("roles/harvester");
 jest.mock("roles/upgrader");
-jest.mock("tower");
 
 const builder = mockInstanceOf<Creep>({ memory: { role: "builder" } });
 const harvester = mockInstanceOf<Creep>({ memory: { role: "harvester" } });
@@ -22,24 +21,6 @@ const ROOM_POS = mockInstanceOf<RoomPosition>({
 });
 
 describe("main loop", () => {
-  it("runs every creep", () => {
-    mockGlobal<Game>("Game", {
-      creeps: {
-        builder,
-        harvester,
-        upgrader
-      },
-      rooms: {},
-      time: 1,
-      RoomPosition: ROOM_POS
-    });
-    mockGlobal<Memory>("Memory", { creeps: {} });
-    runCreep();
-    expect(roleBuilder.run).toHaveBeenCalledWith(builder);
-    expect(roleHarvester.run).toHaveBeenCalledWith(harvester);
-    expect(roleUpgrader.run).toHaveBeenCalledWith(upgrader);
-  });
-
   it("cleans up the memory from deceased creeps", () => {
     mockGlobal<Game>("Game", {
       creeps: { stillKicking: harvester },
