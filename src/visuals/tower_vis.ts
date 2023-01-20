@@ -22,24 +22,56 @@ class TowerVisual {
   }
 
   energy_lvl_update(tower: StructureTower) {
-    this.towers_stats.set(tower.id, { energy_lvl: 5 });
-  }
-
-  energy_lvl_vis(tower: StructureTower) {
-    new RoomVisual(tower.room.name).text("Tower ⚡️ levels " + this.towers_stats.get(tower.id)?.energy_lvl, tower.pos, {
-      font: 0.5
+    const energy_storage = tower.store[RESOURCE_ENERGY];
+    const measure_point = this.measurement_points(tower) + 1;
+    const total_energy = this.total_energy_lvl(tower) + energy_storage;
+    const avg_energy_lvl = total_energy / measure_point;
+    console.log(total_energy + " " + energy_storage + " " + measure_point);
+    this.towers_stats.set(tower.id, {
+      avg_energy_lvl: avg_energy_lvl,
+      total_energy: total_energy,
+      measure_point: measure_point
     });
   }
 
-  tower_from_id() {
-    const game_struct_val = Object.values(Game.structures);
+  measurement_points(tower: StructureTower): number {
+    const stat_val = this.towers_stats.get(tower.id);
+    if (stat_val?.measure_point != undefined) return stat_val.measure_point;
+    return 1;
+  }
 
-    console.log();
+  avg_energy_lvl(tower: StructureTower): number {
+    const stat_val = this.towers_stats.get(tower.id);
+    if (stat_val?.avg_energy_lvl != undefined) return stat_val.avg_energy_lvl;
+    return 0;
+  }
+
+  total_energy_lvl(tower: StructureTower): number {
+    const stat_val = this.towers_stats.get(tower.id);
+    if (stat_val?.total_energy != undefined) return stat_val.total_energy;
+    return tower.store[RESOURCE_ENERGY];
+  }
+
+  energy_lvl_vis(tower: StructureTower) {
+    const x_pos = tower.pos.x;
+    const y_pos = tower.pos.y - 1;
+    new RoomVisual(tower.room.name).text(
+      "Tower ⚡️ levels " + this.towers_stats.get(tower.id)?.avg_energy_lvl,
+      x_pos,
+      y_pos,
+      {
+        font: 0.5,
+        color: "#6C99BB",
+        backgroundColor: "#372725"
+      }
+    );
   }
 }
 
 interface TowerStats {
-  energy_lvl: number;
+  avg_energy_lvl: number;
+  total_energy: number;
+  measure_point: number;
 }
 
 export { TowerVisual };

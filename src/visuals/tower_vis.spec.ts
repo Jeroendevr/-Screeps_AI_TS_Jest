@@ -15,6 +15,6 @@ describe("Tower Visuals", () => {
     const tower_vis = new TowerVisual();
     tower_vis.energy_lvl_update(myTower);
     const stats = tower_vis.towers_stats.get(myTower.id);
-    expect(stats?.energy_lvl);
+    expect(stats?.avg_energy_lvl).toBe(50);
   });
 });
