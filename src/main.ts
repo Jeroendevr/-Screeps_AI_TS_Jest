@@ -49,6 +49,8 @@ function runAllTowers(): void {
   Object.values(Game.rooms).forEach(room => {
     if (room.controller?.my) {
       const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
+      tower_vis.add_towers(towers);
+      tower_vis.tower_from_id();
 
       towers.forEach(tower => {
         runTower(tower);
