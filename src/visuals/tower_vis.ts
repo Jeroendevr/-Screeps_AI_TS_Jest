@@ -1,17 +1,36 @@
+/**
+ * Should not accept a tower as argument but loop through all ID
+ */
+
 class TowerVisual {
-  pos: any;
-  room: any;
-  constructor(tower: StructureTower) {
-    this.pos = tower.pos;
-    this.room = tower.room;
+  towers: Id<StructureTower>[] = [];
+
+  constructor() {
+    Object.values(Game.rooms).forEach(room => {
+      if (room.controller?.my) {
+        const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
+        towers.forEach(tower => {
+          this.towers.push(tower.id);
+        });
+      }
+    });
   }
 
+  /**
+   * For each tower Id create a tower instance
+   */
   visualize() {
-    this.energy_lvl();
+    this.towers.forEach(towerId => {
+      this.energy_lvl_update(towerId);
+      this.energy_lvl_vis(towerId);
+    });
   }
 
-  energy_lvl() {
-    new RoomVisual(this.room).text("Tower energy levels", this.pos);
+  energy_lvl_update(towerId: Id<StructureTower>) {
+    //
+  }
+  energy_lvl_vis(towerId: Id<StructureTower>) {
+    // new RoomVisual(this.room.name).text("Tower ⚡️ levels " + this.avg_energy_lvl, this.pos, { font: 0.5 });
   }
 }
 

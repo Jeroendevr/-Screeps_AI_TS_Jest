@@ -33,3 +33,9 @@ export const getMemoryRef = <T>(
   };
 };
 ```
+
+### Heap
+
+Heap memory lives between ticks but is reset when a global reset is happening
+
+For a variable to keep on the heap is to use it outside the loop this can be in a seperate variable or in a class so a method can be added to update or retrieve the value.

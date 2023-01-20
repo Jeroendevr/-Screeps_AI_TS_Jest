@@ -24,7 +24,7 @@ function unwrappedLoop(): void {
   runCreep();
   spawnManager.run();
   run_owned_rooms();
-
+  tower_vis.visualize();
   // Util section
   // run_nonstandard_utils()
 }
@@ -52,7 +52,6 @@ function runAllTowers(): void {
 
       towers.forEach(tower => {
         runTower(tower);
-        new TowerVisual(tower).visualize();
       });
     }
   });
@@ -84,6 +83,8 @@ function runCreep(): void {
     }
   });
 }
+
+const tower_vis = new TowerVisual();
 
 function run_nonstandard_utils() {
   //Mostly run once

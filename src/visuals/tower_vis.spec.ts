@@ -8,7 +8,6 @@ const myTower = mockStructure(STRUCTURE_TOWER, {
 
 describe("Tower Visuals", () => {
   it("average energy level", () => {
-    const TVis = new TowerVisual(myTower);
     expect(true);
   });
 });
