@@ -1,13 +1,8 @@
 # Welcome to Screeps AI's documentation!
 
-```{admonition} Task list
-- Increase tower energy reserves
-  - Increase harvesting of energy
-    - [x] Using bigger harvesting utilizing the energy from extensions
-    - [x] Write test for bigger harvesters
-  - Decrease repairing non usefull roads
-   - [x] Improve construction of roads so that there is no tunnel digged to the energy source.
-  - Make roomVisual for average energy level of tower.
+```{admonition} Task list - Extension placement RCL 3
+- [ ] Automatically place all extensions
+
 
 ```
 
@@ -38,10 +33,12 @@ memory.md
 
 convention.md
 
-# Indices and tables
+```
 
-<!--
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search` -->
+```{toctree}
+:maxdepth: 1
+:caption: Old tasks
+
+
+completed_task.md
 ```

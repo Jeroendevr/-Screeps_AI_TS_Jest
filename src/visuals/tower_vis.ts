@@ -56,7 +56,7 @@ class TowerVisual {
     const x_pos = tower.pos.x;
     const y_pos = tower.pos.y - 1;
     new RoomVisual(tower.room.name).text(
-      "Tower ⚡️ levels " + this.towers_stats.get(tower.id)?.avg_energy_lvl,
+      "Tower ⚡️ levels " + this.towers_stats.get(tower.id)?.avg_energy_lvl.toPrecision(3),
       x_pos,
       y_pos,
       {
