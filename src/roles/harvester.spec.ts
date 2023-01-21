@@ -1,23 +1,21 @@
-import { mockInstanceOf, mockStructure } from 'screeps-jest';
-import { roleHarvester } from './harvester';
+import { mockInstanceOf, mockStructure } from "screeps-jest";
+import { roleHarvester } from "./harvester";
 import { isToBeFilled } from "../utils/isToBeFilled";
 
-const source1 = mockInstanceOf<Source>({ id: 'source1' as Id<Source> });
-const source2 = mockInstanceOf<Source>({ id: 'source2' as Id<Source> });
+const source1 = mockInstanceOf<Source>({ id: "source1" as Id<Source> });
+const source2 = mockInstanceOf<Source>({ id: "source2" as Id<Source> });
 const source3 = mockInstanceOf<Source>({
-  id: 'source3' as Id<Source>,
+  id: "source3" as Id<Source>,
   pos: { x: 5, y: 5 }
 });
 const source4 = mockInstanceOf<Source>({
-  id: 'source4' as Id<Source>,
+  id: "source4" as Id<Source>,
   pos: { x: 10, y: 10 }
-})
+});
 const extension = mockStructure(STRUCTURE_EXTENSION);
 
-describe('Harvester role', () => {
-
-  describe('run', () => {
-
+describe("Harvester role", () => {
+  describe("run", () => {
     it("harvests, when it's not full and is near a source", () => {
       const creep = mockInstanceOf<Creep>({
         store: { getFreeCapacity: () => 50 },
@@ -51,19 +49,19 @@ describe('Harvester role', () => {
       const creep = mockInstanceOf<Creep>({
         store: { getFreeCapacity: () => 0 },
         room: { find: () => [extension] },
-        transfer: () => OK
+        transferEnergy: () => OK
       });
 
       roleHarvester.transferEnergy(creep);
       expect(creep.room.find).toHaveBeenCalledWith(FIND_MY_STRUCTURES, { filter: isToBeFilled });
-      expect(creep.transfer).toHaveBeenCalledWith(extension, RESOURCE_ENERGY);
+      expect(creep.transferEnergy).toHaveBeenCalledWith(extension, RESOURCE_ENERGY);
     });
 
     it("moves towards a non-full structure, when it's full and out of range to transfer", () => {
       const creep = mockInstanceOf<Creep>({
         store: { getFreeCapacity: () => 0 },
         room: { find: () => [extension] },
-        transfer: () => ERR_NOT_IN_RANGE,
+        transferEnergy: () => ERR_NOT_IN_RANGE,
         moveTo: () => OK
       });
 
@@ -80,30 +78,33 @@ describe('Harvester role', () => {
           lookForAtArea: () => undefined
         }, // no structures to fill
         moveTo: () => OK,
-        transfer: () => OK,
+        transferEnergy: () => OK,
         pos: {
           y: undefined,
           x: undefined,
           findInRange: () => undefined
-        },
-      })
+        }
+      });
 
       roleHarvester.transferEnergy(creep);
       expect(creep.room.find).toHaveBeenCalledWith(FIND_MY_STRUCTURES, { filter: isToBeFilled });
       expect(creep.moveTo).not.toHaveBeenCalled();
-      expect(creep.transfer).not.toHaveBeenCalled();
+      expect(creep.transferEnergy).not.toHaveBeenCalled();
     });
 
+    it("assings itself a source", () => {
+      const creep_h = mockInstanceOf<Creep>({
+        room: {},
+        find_energy: () => OK
+      });
+      roleHarvester.find_energy(creep_h);
+      expect(creep_h.find_energy).toHaveBeenCalled();
+    });
   });
 
-  describe('isToBeFilled', () => {
-
-    it('accepts extension, spawns and towers that are not full', () => {
-      [
-        STRUCTURE_EXTENSION,
-        STRUCTURE_SPAWN,
-        STRUCTURE_TOWER
-      ].forEach(structureType => {
+  describe("isToBeFilled", () => {
+    it("accepts extension, spawns and towers that are not full", () => {
+      [STRUCTURE_EXTENSION, STRUCTURE_SPAWN, STRUCTURE_TOWER].forEach(structureType => {
         const structure = mockStructure(structureType, {
           energy: 0,
           energyCapacity: 100
@@ -112,12 +113,8 @@ describe('Harvester role', () => {
       });
     });
 
-    it('rejects extension, spawns and towers that are already full', () => {
-      [
-        STRUCTURE_EXTENSION,
-        STRUCTURE_SPAWN,
-        STRUCTURE_TOWER
-      ].forEach(structureType => {
+    it("rejects extension, spawns and towers that are already full", () => {
+      [STRUCTURE_EXTENSION, STRUCTURE_SPAWN, STRUCTURE_TOWER].forEach(structureType => {
         const structure = mockStructure(structureType, {
           energy: 100,
           energyCapacity: 100
@@ -126,7 +123,7 @@ describe('Harvester role', () => {
       });
     });
 
-    it('rejects any other structure type', () => {
+    it("rejects any other structure type", () => {
       [
         STRUCTURE_CONTAINER,
         STRUCTURE_CONTROLLER,
@@ -149,6 +146,5 @@ describe('Harvester role', () => {
         expect(isToBeFilled(structure)).toBeFalsy();
       });
     });
-
   });
 });

@@ -29,7 +29,7 @@ const spawnManager = {
       const upgrader = this.countRole("upgrader");
       const koerier = this.countRole("koerier");
 
-      if (harvesters < screepAmount.harvester) {
+      if (harvesters < spawnAmount._harvester) {
         const creepBody: BodyPartConstant[] | null = BodyPart.harvester(ROOM.energyAvailable);
         if (creepBody != null) {
           if (sufficientCapacity(Game.spawns[mySpawn], creepBody) === true) {
@@ -82,7 +82,7 @@ const spawnManager = {
 };
 
 class spawnAmount {
-  static harvester: number = 1;
+  static _harvester: number = 1;
   koerier: number = 1;
   builder: number = 2;
   upgrader: number = 1;
@@ -90,9 +90,9 @@ class spawnAmount {
   /**
    * Only to be used outside loop
    */
-  update_based_on_room(room: Room) {
-    const energy_sources: number = room.find(FIND_SOURCES).length;
-    spawnAmount.harvester = energy_sources;
+  update_based_on_room(room_name: string) {
+    const energy_sources: number = Game.rooms[room_name].find(FIND_SOURCES).length;
+    spawnAmount._harvester = energy_sources;
   }
 }
 

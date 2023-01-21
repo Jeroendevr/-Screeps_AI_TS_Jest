@@ -37,11 +37,11 @@ function cleanMemory(): void {
 }
 
 function run_owned_rooms(): void {
-  for (const room in Game.rooms) {
-    if (Game.rooms[room].controller?.my == true) {
-      new InfraManager2(room).run();
-      new ConstructionManager(room).run();
-      new spawnAmount().update_based_on_room(room);
+  for (const room_name in Game.rooms) {
+    if (Game.rooms[room_name].controller?.my == true) {
+      new InfraManager2(room_name).run();
+      new ConstructionManager(room_name).run();
+      new spawnAmount().update_based_on_room(room_name);
     }
   }
 }
