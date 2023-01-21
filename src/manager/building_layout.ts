@@ -35,6 +35,9 @@ function* gcl_lvl2_extensions(): Generator<[number, number, string], any, unknow
   yield [+1, -1, "extension"];
   yield [+2, +0, "extension"];
   yield [+3, +0, "extension"];
+  yield [+3, -1, "extension"];
+  yield [+3, +1, "extension"];
+  yield [+3, +2, "extension"];
 }
 
 export { building_layout, gcl_lvl2_extensions };

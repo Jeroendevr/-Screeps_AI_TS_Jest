@@ -141,6 +141,4 @@ describe("Builder role", () => {
     expect(creep.room.find).toHaveBeenCalledWith(FIND_SOURCES);
     expect(creep.memory.building).toBeFalsy();
   });
-
-  it("request construction site where there are none", () => {});
 });
