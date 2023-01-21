@@ -15,9 +15,10 @@ spawning.md
 
 ```{toctree}
 :maxdepth: 2
-:caption: Building
+:caption: Construction
 
 building.md
+comms.md
 ```
 
 ```{toctree}
