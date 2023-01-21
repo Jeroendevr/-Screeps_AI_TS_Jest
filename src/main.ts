@@ -1,5 +1,5 @@
 import { InfraManager2 } from "manager/manager.infra2";
-import { spawnManager } from "manager/manager.spawn";
+import { spawnManager, spawnAmount } from "manager/manager.spawn";
 import { Builder, roleBuilder } from "roles/builder";
 import { BuilderClass, BuilderRole } from "roles/builderv2";
 import { roleHarvester } from "roles/harvester";
@@ -41,6 +41,7 @@ function run_owned_rooms(): void {
     if (Game.rooms[room].controller?.my == true) {
       new InfraManager2(room).run();
       new ConstructionManager(room).run();
+      new spawnAmount().update_based_on_room(room);
     }
   }
 }

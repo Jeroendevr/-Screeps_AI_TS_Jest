@@ -1,3 +1,4 @@
+import { spawn } from "child_process";
 import { Comms } from "utils/global.comms";
 
 const spawnManager = {
@@ -81,10 +82,18 @@ const spawnManager = {
 };
 
 class spawnAmount {
-  harvester: number = 1;
+  static harvester: number = 1;
   koerier: number = 1;
   builder: number = 2;
   upgrader: number = 1;
+
+  /**
+   * Only to be used outside loop
+   */
+  update_based_on_room(room: Room) {
+    const energy_sources: number = room.find(FIND_SOURCES).length;
+    spawnAmount.harvester = energy_sources;
+  }
 }
 
 class BodyParts {
@@ -132,4 +141,4 @@ function sufficientCapacity(creepSpawn: StructureSpawn, creepBody: BodyPartConst
   }
 }
 
-export { spawnManager, sufficientCapacity, BodyParts };
+export { spawnManager, sufficientCapacity, BodyParts, spawnAmount };

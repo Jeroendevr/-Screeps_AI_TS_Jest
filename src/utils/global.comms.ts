@@ -1,7 +1,6 @@
 // Global communication class
 
 import { RoomManager } from "manager/manager";
-import { Transform } from "stream";
 
 class Comms {
   private static _instance: Comms;

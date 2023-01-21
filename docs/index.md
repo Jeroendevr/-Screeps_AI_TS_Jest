@@ -3,6 +3,7 @@
 ```{admonition} Task list - Extension placement RCL 3
 - [x] Automatically place all extensions for GCL lvl 2
 - [ ] static harvester for two energy sources in room
+ - [ ] Spawn one harvester per energy source
 
 
 ```
