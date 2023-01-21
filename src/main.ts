@@ -2,7 +2,7 @@ import { InfraManager2 } from "manager/manager.infra2";
 import { spawnManager, spawnAmount } from "manager/manager.spawn";
 import { Builder, roleBuilder } from "roles/builder";
 import { BuilderClass, BuilderRole } from "roles/builderv2";
-import { roleHarvester } from "roles/harvester";
+import { Harvester, roleHarvester } from "roles/harvester";
 import { RemoveConstructionSite } from "utils/remove_constuctsite";
 import { Koerier, roleKoerier } from "roles/koerier";
 import roleUpgrader, { Upgrader } from "roles/upgrader";
@@ -66,7 +66,7 @@ function runCreep(): void {
 
   Object.values(Game.creeps).forEach(creep => {
     if (creep.memory.role === "harvester") {
-      roleHarvester.run(creep);
+      roleHarvester.run(creep as Harvester);
     }
     if (creep.memory.role === "upgrader") {
       roleUpgrader.run(creep as Upgrader);

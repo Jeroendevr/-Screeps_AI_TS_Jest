@@ -33,7 +33,7 @@ const roleKoerier = {
     // When not hauling
     const targets = koerier_targets(creep);
     if (targets.length > 0) {
-      if (creep.transferEnergy(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+      if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.memory.target = targets[0];
         creep.moveTo(targets[0], {
           visualizePathStyle: {

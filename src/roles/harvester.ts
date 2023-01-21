@@ -24,7 +24,7 @@ const roleHarvester = {
     const targets = creep.room.find(FIND_MY_STRUCTURES, { filter: isToBeFilled });
 
     if (targets.length > 0) {
-      if (creep.transferEnergy(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+      if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffffff" } });
       }
     }
@@ -46,7 +46,7 @@ const roleHarvester = {
 function koerierNear(creep: Creep): boolean {
   const nearbyKoerier = creep.pos.findInRange(FIND_MY_CREEPS, 1, { filter: { memory: { role: "koerier" } } });
   if (nearbyKoerier.length > 0) {
-    creep.transferEnergy(nearbyKoerier[0], RESOURCE_ENERGY);
+    creep.transfer(nearbyKoerier[0], RESOURCE_ENERGY);
   }
 
   return false;

@@ -49,19 +49,19 @@ describe("Harvester role", () => {
       const creep = mockInstanceOf<Creep>({
         store: { getFreeCapacity: () => 0 },
         room: { find: () => [extension] },
-        transferEnergy: () => OK
+        transfer: () => OK
       });
 
       roleHarvester.transferEnergy(creep);
       expect(creep.room.find).toHaveBeenCalledWith(FIND_MY_STRUCTURES, { filter: isToBeFilled });
-      expect(creep.transferEnergy).toHaveBeenCalledWith(extension, RESOURCE_ENERGY);
+      expect(creep.transfer).toHaveBeenCalledWith(extension, RESOURCE_ENERGY);
     });
 
     it("moves towards a non-full structure, when it's full and out of range to transfer", () => {
       const creep = mockInstanceOf<Creep>({
         store: { getFreeCapacity: () => 0 },
         room: { find: () => [extension] },
-        transferEnergy: () => ERR_NOT_IN_RANGE,
+        transfer: () => ERR_NOT_IN_RANGE,
         moveTo: () => OK
       });
 
@@ -78,7 +78,7 @@ describe("Harvester role", () => {
           lookForAtArea: () => undefined
         }, // no structures to fill
         moveTo: () => OK,
-        transferEnergy: () => OK,
+        transfer: () => OK,
         pos: {
           y: undefined,
           x: undefined,
@@ -89,7 +89,7 @@ describe("Harvester role", () => {
       roleHarvester.transferEnergy(creep);
       expect(creep.room.find).toHaveBeenCalledWith(FIND_MY_STRUCTURES, { filter: isToBeFilled });
       expect(creep.moveTo).not.toHaveBeenCalled();
-      expect(creep.transferEnergy).not.toHaveBeenCalled();
+      expect(creep.transfer).not.toHaveBeenCalled();
     });
 
     it("assings itself a source", () => {
