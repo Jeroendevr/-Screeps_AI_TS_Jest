@@ -1,37 +1,35 @@
-import { mockInstanceOf, mockGlobal } from 'screeps-jest';
-import { Builder, roleBuilder, work_on_construction_sites } from './builder';
-var _ = require('lodash')
+import { mockInstanceOf, mockGlobal } from "screeps-jest";
+import { Builder, roleBuilder, work_on_construction_sites } from "./builder";
+var _ = require("lodash");
 
 const cs1 = mockInstanceOf<ConstructionSite>({
-  id: 'cs1',
+  id: "cs1",
   structureType: STRUCTURE_EXTENSION
 });
 const cs2 = mockInstanceOf<ConstructionSite>({
-  id: 'cs2',
+  id: "cs2",
   structureType: STRUCTURE_ROAD
 });
-const source1 = mockInstanceOf<Source>({ id: 'source1' });
-const source2 = mockInstanceOf<Source>({ id: 'source2' });
+const source1 = mockInstanceOf<Source>({ id: "source1" });
+const source2 = mockInstanceOf<Source>({ id: "source2" });
 
-describe('Builder role', () => {
-
-  it('works on a construction site, when it has energy and is within range', () => {
-    mockGlobal<Game>('Game', {
+describe("Builder role", () => {
+  it("works on a construction site, when it has energy and is within range", () => {
+    mockGlobal<Game>("Game", {
       gcl: {
         level: 2
       }
-    })
+    });
     const creep = mockInstanceOf<Builder>({
       store: { energy: 50 },
       memory: {
         building: true,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [cs1, cs2] },
       build: () => OK,
-      say: ()=> OK
+      say: () => OK
     });
-
 
     roleBuilder.run(creep);
     expect(creep.memory.building).toBeTruthy();
@@ -39,12 +37,12 @@ describe('Builder role', () => {
     expect(creep.build).toHaveBeenCalledWith(cs1);
   });
 
-  it('idles, when it has energy and there are no construction sites', () => {
+  it("idles, when it has energy and there are no construction sites", () => {
     const creep = mockInstanceOf<Builder>({
       store: { energy: 50 },
       memory: {
         building: true,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [] },
       build: () => OK
@@ -55,17 +53,17 @@ describe('Builder role', () => {
     expect(creep.build).not.toHaveBeenCalled();
   });
 
-  it('moves towards construction site, when it has energy but is out of range', () => {
+  it("moves towards construction site, when it has energy but is out of range", () => {
     const creep = mockInstanceOf<Builder>({
       store: { energy: 50 },
       memory: {
         building: true,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [cs1, cs2] },
       build: () => ERR_NOT_IN_RANGE,
       moveTo: () => OK,
-      say: () => OK,
+      say: () => OK
     });
 
     roleBuilder.run(creep);
@@ -80,7 +78,7 @@ describe('Builder role', () => {
       store: { getFreeCapacity: () => 50 },
       memory: {
         building: false,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [source1, source2] },
       harvest: () => OK
@@ -97,7 +95,7 @@ describe('Builder role', () => {
       store: { getFreeCapacity: () => 50 },
       memory: {
         building: false,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [source1, source2] },
       harvest: () => ERR_NOT_IN_RANGE,
@@ -109,12 +107,12 @@ describe('Builder role', () => {
     expect(creep.moveTo).toHaveBeenCalledWith(source1, expect.anything());
   });
 
-  it('switches to building when it gets full', () => {
+  it("switches to building when it gets full", () => {
     const creep = mockInstanceOf<Builder>({
       store: { getFreeCapacity: () => 0 },
       memory: {
         building: false,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [cs1, cs2] },
       build: () => OK,
@@ -125,7 +123,7 @@ describe('Builder role', () => {
     expect(creep.memory.building).toBeTruthy();
   });
 
-  it('switches to harvesting when it gets empty', () => {
+  it("switches to harvesting when it gets empty", () => {
     const creep = mockInstanceOf<Builder>({
       store: {
         energy: 0,
@@ -133,7 +131,7 @@ describe('Builder role', () => {
       },
       memory: {
         building: true,
-        role: 'builder'
+        role: "builder"
       },
       room: { find: () => [source1, source2] },
       harvest: () => OK,
@@ -144,4 +142,5 @@ describe('Builder role', () => {
     expect(creep.memory.building).toBeFalsy();
   });
 
+  it("request construction site where there are none", () => {});
 });
