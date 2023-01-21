@@ -94,11 +94,13 @@ describe("Harvester role", () => {
 
     it("assings itself a source", () => {
       const creep_h = mockInstanceOf<Creep>({
-        room: {},
+        room: {
+          find: () => OK
+        },
         find_energy: () => OK
       });
       roleHarvester.find_energy(creep_h);
-      expect(creep_h.find_energy).toHaveBeenCalled();
+      expect(creep_h.room.find).toHaveBeenCalled();
     });
   });
 

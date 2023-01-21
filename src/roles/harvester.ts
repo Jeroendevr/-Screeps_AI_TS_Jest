@@ -29,7 +29,9 @@ const roleHarvester = {
       }
     }
   },
-  find_energy(creep: Creep): void {}
+  find_energy(creep: Creep): void {
+    const sources = creep.room.find(FIND_SOURCES);
+  }
 };
 
 function koerierNear(creep: Creep): boolean {
