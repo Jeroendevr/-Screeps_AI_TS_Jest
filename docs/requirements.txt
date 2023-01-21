@@ -1,1 +1,2 @@
 myst-parser == 0.18.1
+sphinxcontrib-mermaid == 0.7.1
