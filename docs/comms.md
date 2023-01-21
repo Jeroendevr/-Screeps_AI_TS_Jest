@@ -7,7 +7,7 @@ classDiagram
     note "main.ts run_owned_rooms"
     ConstructionManager *-- RoomComms
     BuilderClass *-- RoomComms
-    RoomComms <|-- RoomManager
+    RoomManager <|-- RoomComms : Extends
 
     class ConstructionManager {
         +~Create~ new ConstructionManager(room) ConstructionManager
