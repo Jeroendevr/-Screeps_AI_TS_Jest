@@ -13,7 +13,9 @@ const spawnManager = {
       spawn_amount.upgrader = 2;
     }
   },
-
+  /*
+   * Spawn basic amount of creeps
+   */
   spawn(): void {
     let screepAmount = spawn_amount;
 

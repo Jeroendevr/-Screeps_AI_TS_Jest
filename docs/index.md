@@ -19,16 +19,18 @@ spawning.md
 
 ```{toctree}
 :maxdepth: 2
-:caption: Construction
+:caption: Creep roles
 
 building.md
 comms.md
+harvester.md
 ```
 
 ```{toctree}
-:maxdepth: 2
-:caption: Game
+:maxdepth: 1
+:caption: Game Object and Principles
 
+designprinciple.md
 memory.md
 ```
 
