@@ -17,7 +17,7 @@ const extension = mockStructure(STRUCTURE_EXTENSION);
 describe("Harvester role", () => {
   describe("run", () => {
     it("harvests, when it's not full and is near a source", () => {
-      const creep = mockInstanceOf<Creep>({
+      const creep = mockInstanceOf<Harvester>({
         store: { getFreeCapacity: () => 50 },
         pos: {
           findClosestByPath: () => source1
@@ -31,7 +31,7 @@ describe("Harvester role", () => {
     });
 
     it("moves to a source, when it's not full and not near a source", () => {
-      const creep = mockInstanceOf<Creep>({
+      const creep = mockInstanceOf<Harvester>({
         store: { getFreeCapacity: () => 50 },
         pos: {
           findClosestByPath: () => source1
