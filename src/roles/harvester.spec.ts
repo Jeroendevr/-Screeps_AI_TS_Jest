@@ -101,7 +101,11 @@ describe("Harvester role", () => {
 
       expect(roleHarvester.assign_source(creep_h)).toBeFalsy();
     });
-
+    /*
+     * Adolfo : Creep is in dit geval de out of process dependency.
+     * Zou het toevoegen van een application service laag (controller) helpen om de buisiness logic in de klasse te houden en dus makkelijker testbaar.
+     * Bijv. Creep service?
+     */
     it("assings itself one of two sources", () => {
       const harvester = mockInstanceOf<Harvester>({
         room: {
