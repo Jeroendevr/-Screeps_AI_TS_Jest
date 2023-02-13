@@ -9,7 +9,7 @@ interface HarvesterMemory extends CreepMemory {
 }
 
 const roleHarvester = {
-  run(creep: Creep): void {
+  run(creep: Harvester): void {
     if (creep.store.getFreeCapacity() > 0) {
       const sources = creep.pos.findClosestByPath(FIND_SOURCES);
       if (sources != null && creep.harvest(sources) === ERR_NOT_IN_RANGE) {
@@ -29,7 +29,10 @@ const roleHarvester = {
       }
     }
   },
-  find_energy(creep: Harvester): Boolean {
+  /*
+   *Harvester Search for energy and sticks to that source
+   */
+  assign_source(creep: Harvester): Boolean {
     const sources: Source[] = creep.room.find(FIND_SOURCES);
     if (sources.length == 0) {
       return false;

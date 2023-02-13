@@ -92,15 +92,23 @@ describe("Harvester role", () => {
       expect(creep.transfer).not.toHaveBeenCalled();
     });
 
-    it("assings itself a source", () => {
+    it("No sources found", () => {
       const creep_h = mockInstanceOf<Harvester>({
         room: {
-          find: () => OK
-        },
-        find_energy: () => true
+          find: () => []
+        }
       });
-      // roleHarvester.find_energy(creep_h);
-      // expect(creep_h.room.find).toHaveBeenCalled();
+
+      expect(roleHarvester.assign_source(creep_h)).toBeFalsy();
+    });
+
+    it("assings itself one of two sources", () => {
+      const harvester = mockInstanceOf<Harvester>({
+        room: {
+          find: () => [source3, source4]
+        }
+      });
+      expect(roleHarvester.assign_source(harvester)).toBeTruthy();
     });
   });
 
