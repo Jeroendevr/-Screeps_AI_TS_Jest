@@ -161,4 +161,11 @@ describe("Harvester role", () => {
       });
     });
   });
+
+  describe("New Harvester Class with RoomService implementation", () => {
+    it("assigns itself one of two sources", () => {
+      /* Code has become trivial.
+       */
+    });
+  });
 });
