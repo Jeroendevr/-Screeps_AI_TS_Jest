@@ -1,6 +1,7 @@
 import { isToBeFilled } from "../utils/isToBeFilled";
+import { RoomService } from "utils/room.service";
 
-interface Harvester extends Creep {
+interface HarvesterRole extends Creep {
   memory: HarvesterMemory;
 }
 interface HarvesterMemory extends CreepMemory {
@@ -9,7 +10,7 @@ interface HarvesterMemory extends CreepMemory {
 }
 
 const roleHarvester = {
-  run(creep: Harvester): void {
+  run(creep: HarvesterRole): void {
     if (creep.store.getFreeCapacity() > 0) {
       const sources = creep.pos.findClosestByPath(FIND_SOURCES);
       if (sources != null && creep.harvest(sources) === ERR_NOT_IN_RANGE) {
@@ -32,7 +33,7 @@ const roleHarvester = {
   /*
    *Harvester Search for energy and sticks to that source
    */
-  assign_source(creep: Harvester): Boolean {
+  assign_source(creep: HarvesterRole): Boolean {
     const sources: Source[] = creep.room.find(FIND_SOURCES);
     if (sources.length == 0) {
       return false;
@@ -55,4 +56,19 @@ function koerierNear(creep: Creep): boolean {
   return false;
 }
 
-export { roleHarvester, Harvester, isToBeFilled };
+class Harvester {
+  creep!: HarvesterRole;
+  source!: Source;
+  room_service!: RoomService;
+
+  run(creep: HarvesterRole) {
+    this.creep = creep;
+    this.room_service = new RoomService(creep.room);
+  }
+
+  assign_source() {
+    this.source = this.room_service.sources()[0];
+  }
+}
+
+export { roleHarvester, HarvesterRole as Harvester, isToBeFilled };

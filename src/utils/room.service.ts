@@ -5,3 +5,5 @@ class RoomService {
     return this.room.find(FIND_SOURCES);
   }
 }
+
+export { RoomService };
