@@ -71,4 +71,4 @@ class Harvester {
   }
 }
 
-export { roleHarvester, HarvesterRole as Harvester, isToBeFilled };
+export { roleHarvester, HarvesterRole as Harvester, isToBeFilled, Harvester as HarvesterClass };

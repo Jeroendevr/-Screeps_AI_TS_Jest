@@ -17,9 +17,14 @@ declare global {
   }
 }
 
+// memory
+// Game.*
+//
+
 function unwrappedLoop(): void {
   // console.log(`Current game tick is ${Game.time}`);
   cleanMemory();
+
   runAllTowers();
   runCreep();
   spawnManager.run();
