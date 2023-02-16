@@ -4,14 +4,6 @@ import { isToBeFilled } from "../utils/isToBeFilled";
 
 const source1 = mockInstanceOf<Source>({ id: "source1" as Id<Source> });
 const source2 = mockInstanceOf<Source>({ id: "source2" as Id<Source> });
-const source3 = mockInstanceOf<Source>({
-  id: "source3" as Id<Source>,
-  pos: { x: 5, y: 5 }
-});
-const source4 = mockInstanceOf<Source>({
-  id: "source4" as Id<Source>,
-  pos: { x: 10, y: 10 }
-});
 const extension = mockStructure(STRUCTURE_EXTENSION);
 
 describe("Harvester role", () => {
@@ -101,19 +93,6 @@ describe("Harvester role", () => {
 
       expect(roleHarvester.assign_source(creep_h)).toBeFalsy();
     });
-    /*
-     * Adolfo : Creep is in dit geval de out of process dependency.
-     * Zou het toevoegen van een application service laag (controller) helpen om de buisiness logic in de klasse te houden en dus makkelijker testbaar.
-     * Bijv. Creep service?
-     */
-    it("assings itself one of two sources", () => {
-      const harvester = mockInstanceOf<Harvester>({
-        room: {
-          find: () => [source3, source4]
-        }
-      });
-      expect(roleHarvester.assign_source(harvester)).toBeTruthy();
-    });
   });
 
   describe("isToBeFilled", () => {
@@ -159,13 +138,6 @@ describe("Harvester role", () => {
         const structure = mockStructure(structureType);
         expect(isToBeFilled(structure)).toBeFalsy();
       });
-    });
-  });
-
-  describe("New Harvester Class with RoomService implementation", () => {
-    it("assigns itself one of two sources", () => {
-      /* Code has become trivial.
-       */
     });
   });
 });

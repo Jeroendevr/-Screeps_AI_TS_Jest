@@ -17,19 +17,18 @@ declare global {
   }
 }
 
-// memory
-// Game.*
-//
-
 function unwrappedLoop(): void {
   // console.log(`Current game tick is ${Game.time}`);
   cleanMemory();
 
   runAllTowers();
-  runCreep();
+  const creeps = Object.values(Game.creeps);
+  runCreep(creeps);
+
   spawnManager.run();
   run_owned_rooms();
   tower_vis.visualize();
+
   // Util section
   // run_nonstandard_utils()
 }
@@ -64,12 +63,12 @@ function runAllTowers(): void {
   });
 }
 
-function runCreep(): void {
+function runCreep(creeps: Creep[]): void {
   /**
    * Init the classes
    */
 
-  Object.values(Game.creeps).forEach(creep => {
+  creeps.forEach(creep => {
     if (creep.memory.role === "harvester") {
       roleHarvester.run(creep as Harvester);
     }
